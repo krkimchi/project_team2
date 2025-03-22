@@ -10,13 +10,20 @@ public class User {
     private String phone;
     private String fullName;
     private String avatarUrl;
-    private String userType;
+    private UserType userType;
     private boolean isActive;
     private LocalDateTime createdAt;
 
+    public enum UserType {
+        ADMIN,
+        OWNER,
+        CUSTOMER,
+        SHIPPER
+    }
+
     public User() {}
 
-    public User (int id, String username, String password, String email, String phone, String fullName, String avatarUrl, String userType, boolean isActive, LocalDateTime createdAt) {
+    public User(int id, String username, String password, String email, String phone, String fullName, String avatarUrl, UserType userType, boolean isActive, LocalDateTime createdAt) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -85,11 +92,11 @@ public class User {
         this.avatarUrl = avatarUrl;
     }
 
-    public String getUserType() {
+    public UserType getUserType() {
         return userType;
     }
 
-    public void setUserType(String userType) {
+    public void setUserType(UserType userType) {
         this.userType = userType;
     }
 
