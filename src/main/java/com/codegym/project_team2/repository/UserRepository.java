@@ -26,7 +26,7 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public boolean registerUser(User user) {
-        String query = "insert into users (username, password, email, phone, fullName, userType, isActive, createdAt) values (?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "insert into users (username, password, email, phone, full_name, user_type, is_active, created_at) values (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = BaseRepository.getConnectDB();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, user.getUsername());
@@ -50,8 +50,8 @@ public class UserRepository implements IUserRepository {
         String password = resultSet.getString("password");
         String email = resultSet.getString("email");
         String phone = resultSet.getString("phone");
-        String fullName = resultSet.getString("fullName");
-        String avatarUrl = resultSet.getString("avatarUrl");
+        String fullName = resultSet.getString("full_name");
+        String avatarUrl = resultSet.getString("avatar_url");
         String userTypeStr = resultSet.getString("userType");
         User.UserType userType = User.UserType.valueOf(userTypeStr);
         boolean isActive = resultSet.getBoolean("isActive");

@@ -45,7 +45,7 @@
         .wrapper {
             position: relative;
             width: 430px;
-            height: 580px;
+            height: 620px;
             background-color: var(--white-color);
             border-radius: 15px;
             padding: 120px 32px 64px;
@@ -174,30 +174,41 @@
         </div>
     </div>
 
-    <form action="RegisterServlet" method="post" class="register-form" autocomplete="off">
+    <form action="register" method="post" class="register-form" autocomplete="off">
         <div class="input-box">
-            <input type="text" class="input-field" name="fullname" required>
+            <input type="text" class="input-field" name="username" required>
+            <label class="label">Username</label>
+            <i class='bx bx-user icon'></i>
+        </div>
+
+        <div class="input-box">
+            <input type="text" class="input-field" name="full_name" required>
             <label class="label">Full Name</label>
             <i class='bx bx-user icon'></i>
         </div>
+
         <div class="input-box">
             <input type="text" class="input-field" name="email" required>
             <label class="label">Email</label>
             <i class='bx bx-envelope icon'></i>
         </div>
+
         <div class="input-box">
             <input type="password" class="input-field" name="password" required>
             <label class="label">Password</label>
             <i class='bx bx-lock-alt icon'></i>
         </div>
+
         <div class="input-box">
             <input type="password" class="input-field" name="confirm_password" required>
             <label class="label">Confirm Password</label>
             <i class='bx bx-lock icon'></i>
         </div>
+
         <div class="input-box">
             <button type="submit" class="btn-submit">Sign Up</button>
         </div>
+
         <div class="switch-form">
             <span>Already have an account? <a href="login">Login</a></span>
         </div>
