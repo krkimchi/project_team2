@@ -45,7 +45,7 @@
         .wrapper {
             position: relative;
             width: 430px;
-            height: 620px;
+            height: 670px;
             background-color: var(--white-color);
             border-radius: 15px;
             padding: 120px 32px 64px;
@@ -147,6 +147,15 @@
             padding: 0 10px;
         }
 
+        .switch-form {
+            margin-left: 10px;
+        }
+
+        .switch-form a {
+            color: var(--primary-color);
+        }
+
+
         .btn-submit {
             width: 100%;
             height: 50px;
@@ -163,6 +172,7 @@
         .btn-submit:hover {
             background-color: #08122b;
         }
+
     </style>
 </head>
 <body>
@@ -203,6 +213,16 @@
             <input type="password" class="input-field" name="confirm_password" required>
             <label class="label">Confirm Password</label>
             <i class='bx bx-lock icon'></i>
+        </div>
+
+        <div class="input-box">
+            <select class="input-field" name="userType" required>
+                <option value="Select">---Select Role---</option>
+                <option value="Customer">Customer</option>
+                <option value="Owner">Restaurant Owner</option>
+                <option value="Shipper">Shipper</option>
+            </select>
+            <i class='bx bx-user-circle icon'></i>
         </div>
 
         <div class="input-box">

@@ -24,8 +24,11 @@ public class RegisterServlet extends HttpServlet {
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
         String fullName = request.getParameter("full_name");
+        String userTypeString = request.getParameter("userType");
 
-        User user = new User(0, username, password, email, phone, fullName, null, User.UserType.CUSTOMER, true, LocalDateTime.now());
+        User.UserType userType = User.UserType.valueOf(userTypeString.toUpperCase());
+
+        User user = new User(0, username, password, email, phone, fullName, null, userType, true, LocalDateTime.now());
 
         boolean isRegistered = userService.register(user);
         if (isRegistered) {
