@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet (name = "LoginServlet", value = "/login")
@@ -19,9 +20,13 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
+        String password = request.getParameter("password");
         User user = userService.login(username);
 
-        if (user != null) {
+        if (user != null && user.getPassword().equals(password)) {
+            HttpSession session = request.getSession();
+            session.setAttribute("user", user);
+            session.setAttribute("userType", user.getUserType());
             response.sendRedirect("/index.jsp");
         } else {
             request.setAttribute("errorMessage", "Invalid username or password");

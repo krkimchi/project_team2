@@ -4,6 +4,7 @@ import com.codegym.project_team2.model.User;
 import com.codegym.project_team2.repository.UserRepository;
 import com.codegym.project_team2.service.IUserService;
 import com.codegym.project_team2.service.UserService;
+import com.codegym.project_team2.util.EmailService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Random;
 
 @WebServlet(name = "RegisterServlet", value = "/register")
 public class RegisterServlet extends HttpServlet {
@@ -30,13 +32,27 @@ public class RegisterServlet extends HttpServlet {
 
         User user = new User(0, username, password, email, phone, fullName, null, userType, true, LocalDateTime.now());
 
+        String otp = generateOtp();
+
+        request.getSession().setAttribute("otp", otp);
+        request.setAttribute("otp", otp);
+
+        EmailService.sendEmail(email, otp);
+
         boolean isRegistered = userService.register(user);
+
         if (isRegistered) {
-            response.sendRedirect("/view/user/login.jsp");
+            request.getRequestDispatcher("/view/user/register.jsp").forward(request, response);
         } else {
             request.setAttribute("errorMessage", "Registration failed");
             request.getRequestDispatcher("/view/user/register.jsp").forward(request, response);
         }
+    }
+
+    private String generateOtp() {
+        Random rand = new Random();
+        int otp = rand.nextInt(999999 - 100000) + 100000;
+        return String.valueOf(otp);
     }
 
     @Override

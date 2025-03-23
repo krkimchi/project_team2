@@ -173,6 +173,42 @@
             background-color: #08122b;
         }
 
+        #otpPopup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .otpPopupContent {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 300px;
+        }
+        .otpPopupContent input {
+            padding: 10px;
+            width: 80%;
+            margin: 10px 0;
+        }
+        .otpPopupContent button {
+            padding: 10px 20px;
+            background-color: #0D1936;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .otpPopupContent button:hover {
+            background-color: #08122b;
+        }
+
     </style>
 </head>
 <body>
@@ -234,6 +270,40 @@
         </div>
     </form>
 </div>
+
+<div id="otpPopup">
+    <div class="otpPopupContent">
+        <h3>Verify OTP</h3>
+        <input type="text" id="otpInput" placeholder="Enter OTP" required>
+        <button id="verifyOtpButton">Verify OTP</button>
+        <button id="closePopupButton">Close</button>
+        <div id="otpErrorMessage" style="color: red; display: none;">Invalid OTP. Please try again.</div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const otp = "<%= request.getAttribute("otp") != null ? request.getAttribute("otp") : "" %>";
+
+        if (otp) {
+            document.getElementById("otpPopup").style.display = "flex";
+        }
+
+        document.getElementById("verifyOtpButton").addEventListener("click", function () {
+            const otpInput = document.getElementById("otpInput").value;
+            if (otpInput === otp) {
+                alert("OTP verified successfully!");
+                window.location.href = "/view/user/success.jsp";
+            } else {
+                document.getElementById("otpErrorMessage").style.display = "block";
+            }
+        });
+
+        document.getElementById("closePopupButton").addEventListener("click", function () {
+            document.getElementById("otpPopup").style.display = "none";
+        });
+    });
+</script>
 </body>
 </html>
 
