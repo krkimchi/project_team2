@@ -7,7 +7,7 @@
     <title>Trang Chủ - Hệ thống Đặt Món Ăn</title>
 
     <!-- Bootstrap CSS -->
-    <c:import url="../layout/library.jsp"/>
+    <c:import url="../../views/layout/library.jsp"/>
 
     <link rel="stylesheet" type="text/css" href="/resources/css/customer/home.css"/>
 </head>

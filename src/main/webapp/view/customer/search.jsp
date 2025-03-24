@@ -4,7 +4,7 @@
 <html>
 <head>
     <title>Search Food</title>
-    <c:import url="../layout/library.jsp"/>
+    <c:import url="../../views/layout/library.jsp"/>
     <link rel="stylesheet" type="text/css" href="/resources/css/customer/home.css"/>
 </head>
 <body>
