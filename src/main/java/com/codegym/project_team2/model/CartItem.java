@@ -24,4 +24,9 @@ public class CartItem {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    // Tính giá trị tổng cho món ăn trong giỏ hàng
+    public double getTotalPrice() {
+        return food.getPrice() * quantity;
+    }
 }

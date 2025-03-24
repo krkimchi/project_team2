@@ -27,6 +27,10 @@ public class LoginController extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
             session.setAttribute("userType", user.getUserType());
+
+            if (session.getAttribute("userType") == "customer") {
+                response.sendRedirect("/view/customer/home.jsp");
+            }
             response.sendRedirect("/index.jsp");
         } else {
             request.setAttribute("errorMessage", "Invalid username or password");

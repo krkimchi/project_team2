@@ -36,9 +36,17 @@ public class Customer extends User {
 
     // Thêm món ăn vào giỏ
     public void addToCart(Food food, int quantity) {
+        for (CartItem item : cart) {
+            if (item.getFood().equals(food)) {
+                item.setQuantity(item.getQuantity() + quantity);
+                return;
+            }
+        }
+
         CartItem item = new CartItem(food, quantity);
         cart.add(item);
     }
+
 
     // Chỉnh sửa số lượng món ăn trong giỏ ( giỏ hàng dùng session )
     public void updateCartQuantity(Food food, int quantity) {

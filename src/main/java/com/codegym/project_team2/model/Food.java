@@ -9,21 +9,19 @@ public class Food {
     private String description;
     boolean isAvailable;
     String createdAt;
-    private String restaurantName;
 
     public Food() {
     }
 
-    public Food(boolean isAvailable, int id, int restaurantId, String name, double price, String foodImg, String description, String createdAt, String restaurantName) {
-        this.isAvailable = isAvailable;
+    public Food(int id, int restaurantId, String name, double price, String foodImg, String description, boolean isAvailable, String createdAt) {
         this.id = id;
         this.restaurantId = restaurantId;
         this.name = name;
         this.price = price;
         this.foodImg = foodImg;
         this.description = description;
+        this.isAvailable = isAvailable;
         this.createdAt = createdAt;
-        this.restaurantName = restaurantName;
     }
 
     public int getId() {
@@ -88,13 +86,5 @@ public class Food {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public String getRestaurantName() {
-        return restaurantName;
-    }
-
-    public void setRestaurantName(String restaurantName) {
-        this.restaurantName = restaurantName;
     }
 }
