@@ -1,10 +1,10 @@
-package com.codegym.project_team2.controller;
+package com.codegym.project_team2.service;
 
 import com.codegym.project_team2.model.Order;
 import com.codegym.project_team2.repository.IOrderRepository;
 import com.codegym.project_team2.repository.OrderRepository;
 
-public class OrderController implements IOrderController {
+public class OrderService implements IOrderService {
     private IOrderRepository orderRepository = new OrderRepository();
 
     @Override

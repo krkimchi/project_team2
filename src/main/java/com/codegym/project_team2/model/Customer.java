@@ -1,17 +1,15 @@
 package com.codegym.project_team2.model;
 
-import com.codegym.project_team2.controller.*;
-import com.codegym.project_team2.repository.IRatingRepository;
-import com.codegym.project_team2.repository.RatingRepository;
+import com.codegym.project_team2.service.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Customer extends User {
-    private IFoodController foodController = new FoodController();
-    private IOrderController orderController = new OrderController();
-    private IRatingController ratingController = new RatingController();
+    private IFoodService foodController = new FoodService();
+    private IOrderService orderController = new OrderService();
+    private IRatingService ratingController = new RatingService();
 
     private List<Order> orderHistory = new ArrayList<>(); // Lịch sử đơn hàng
     private List<CartItem> cart = new ArrayList<>(); // Giỏ hàng
@@ -27,12 +25,12 @@ public class Customer extends User {
     }
 
     // Xem danh sách món ăn được đặt nhiều nhất ( hiển thị ở đầu trang chủ )
-    public List<Food> getMostOrderedFoods() {
+    public List<DishDto> getMostOrderedFoods() {
         return foodController.getMostOrderedFoods();
     }
 
     // Tìm kiếm món ăn theo tên hoặc nhà hàng (GV yêu cầu )
-    public List<Food> searchFood(String keyword) {
+    public List<DishDto> searchFood(String keyword) {
         return foodController.searchFood(keyword);
     }
 

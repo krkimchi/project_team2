@@ -1,4 +1,4 @@
-package com.codegym.project_team2.service;
+package com.codegym.project_team2.controller;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

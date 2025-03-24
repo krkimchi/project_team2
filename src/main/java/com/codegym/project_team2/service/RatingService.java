@@ -1,9 +1,9 @@
-package com.codegym.project_team2.controller;
+package com.codegym.project_team2.service;
 
 import com.codegym.project_team2.repository.IRatingRepository;
 import com.codegym.project_team2.repository.RatingRepository;
 
-public class RatingController implements IRatingController{
+public class RatingService implements IRatingService {
     private IRatingRepository ratingRepository = new RatingRepository();
 
     @Override
