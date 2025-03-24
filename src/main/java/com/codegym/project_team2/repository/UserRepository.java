@@ -11,8 +11,8 @@ public class UserRepository implements IUserRepository {
     @Override
     public User getUserByUserName(String username) {
         String query = "select * from users where username = ?";
-        Connection connection = BaseRepository.getConnectDB();
         try {
+            Connection connection = BaseRepository.getConnectDB();
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -20,7 +20,7 @@ public class UserRepository implements IUserRepository {
                 return mapToUser(resultSet);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         return null;
     }
