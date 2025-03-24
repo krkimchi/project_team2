@@ -1,0 +1,148 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f1f1f1;
+    color: #343a40;
+    line-height: 1.6;
+}
+
+/* Navbar Styling */
+.navbar {
+    padding: 15px;
+    background-color: #343a40;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-nav .nav-link {
+    color: #fff !important;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 10px 20px;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #689ff2 !important;
+}
+
+/* Food and Restaurant Card Styling */
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top {
+    width: 100%; /* Ensure image takes full width */
+    height: 200px;
+    object-fit: contain;
+    object-position: center;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Card Body */
+.card-body {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 250px;
+}
+
+.card-body .btn {
+    margin-top: 10px;
+}
+
+/* Button Styling */
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.btn-primary {
+    background-color: #689ff2;
+    border-color: #689ff2;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.btn-primary:hover {
+    background-color: #4e8bdb;
+    border-color: #4e8bdb;
+}
+
+/* Footer Styling */
+footer {
+    background-color: #343a40;
+    color: #f8f9fa;
+    padding: 20px 0;
+    font-size: 14px;
+}
+
+/* Layout for Popular Dishes and Restaurants */
+.food-list, .restaurant-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.food-item, .restaurant-item {
+    width: 30%;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.card-title {
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+}
+
+/* Header Styling */
+h1 {
+    font-size: 2rem;
+    color: #333;
+    background-color: #689ff2;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Ensuring card content is aligned properly */
+.card-body .d-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+}
+
+.card-text {
+    padding: 0px;
+    margin: 0px;
+    color: #666;
+}
+
+/* Navbar Collapse for Mobile */
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler-icon {
+    background-color: #fff;
+}

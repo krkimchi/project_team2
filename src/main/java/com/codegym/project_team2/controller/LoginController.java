@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "LoginServlet", value = "/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet (name = "LoginController", value = "/login")
+public class LoginController extends HttpServlet {
     private IUserService userService = new UserService(new UserRepository());
 
     @Override
@@ -25,22 +25,9 @@ public class LoginServlet extends HttpServlet {
 
         if (user != null && user.getPassword().equals(password)) {
             HttpSession session = request.getSession();
-            String userType = String.valueOf(user.getUserType());
-            switch (userType) {
-                case "admin":
-                    break;
-                case "owner":
-                    break;
-                case "customer":
-                    break;
-                case "shipper":
-                    break;
-                default:
-                    session.setAttribute("user", user);
-                    session.setAttribute("userType", user.getUserType());
-                    response.sendRedirect("/index.jsp");
-                    break;
-            }
+            session.setAttribute("user", user);
+            session.setAttribute("userType", user.getUserType());
+            response.sendRedirect("/index.jsp");
         } else {
             request.setAttribute("errorMessage", "Invalid username or password");
             request.getRequestDispatcher("/view/user/login.jsp").forward(request, response);
