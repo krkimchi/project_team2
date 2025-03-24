@@ -1,4 +1,4 @@
-package com.codegym.project_team2.servlet;
+package com.codegym.project_team2.controller;
 
 import com.codegym.project_team2.model.User;
 import com.codegym.project_team2.repository.UserRepository;
@@ -15,8 +15,8 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Random;
 
-@WebServlet(name = "RegisterServlet", value = "/register")
-public class RegisterServlet extends HttpServlet {
+@WebServlet(name = "RegisterController", value = "/register")
+public class RegisterController extends HttpServlet {
     private IUserService userService = new UserService(new UserRepository());
 
     @Override
