@@ -16,10 +16,10 @@ public class User {
     private LocalDateTime createdAt;
 
     public enum UserType {
-        ADMIN,
-        OWNER,
-        CUSTOMER,
-        SHIPPER
+        admin,
+        owner,
+        customer,
+        shipper
     }
 
     public User() {}
