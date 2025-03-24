@@ -25,6 +25,7 @@ public class LoginController extends HttpServlet {
 
         if (user != null && user.getPassword().equals(password)) {
             HttpSession session = request.getSession();
+
             session.setAttribute("user", user);
             session.setAttribute("userType", user.getUserType());
             response.sendRedirect("/index.jsp");
