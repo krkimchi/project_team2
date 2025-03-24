@@ -1,4 +1,4 @@
-package com.codegym.project_team2.servlet;
+package com.codegym.project_team2.controller;
 
 import com.codegym.project_team2.model.User;
 import com.codegym.project_team2.repository.UserRepository;
@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet (name = "LoginServlet", value = "/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet (name = "LoginController", value = "/login")
+public class LoginController extends HttpServlet {
     private IUserService userService = new UserService(new UserRepository());
 
     @Override
