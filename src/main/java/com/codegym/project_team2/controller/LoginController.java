@@ -1,4 +1,4 @@
-package com.codegym.project_team2.controller;
+package com.codegym.project_team2.servlet;
 
 import com.codegym.project_team2.model.User;
 import com.codegym.project_team2.repository.UserRepository;
