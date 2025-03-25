@@ -10,7 +10,7 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public User getUserByUserName(String username) {
-        String query = "select * from users where username = ?";
+        String query = "select * from users where email = ?";
         try (Connection connection = BaseRepository.getConnectDB();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, username);

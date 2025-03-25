@@ -19,7 +19,7 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = request.getParameter("username");
+        String username = request.getParameter("email");
         String password = request.getParameter("password");
         User user = userService.login(username);
 
@@ -27,6 +27,9 @@ public class LoginController extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
             session.setAttribute("userType", user.getUserType());
+            if (session.getAttribute("userType") == "SHIPPER") {
+                response.sendRedirect("/shipper");
+            }
             response.sendRedirect("/index.jsp");
         } else {
             request.setAttribute("errorMessage", "Invalid username or password");
