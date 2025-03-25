@@ -60,12 +60,6 @@ public class UserRepository implements IUserRepository {
         boolean isActive = resultSet.getBoolean("is_active");
         LocalDateTime createdAt = resultSet.getTimestamp("created_at").toLocalDateTime();
 
-        // Tạo đối tượng phù hợp với userType
-//        if (userType == User.UserType.customer) {
-//            return new Customer(id, username, password, email, phone, fullName, avatarUrl, userType, isActive, createdAt, new ArrayList<>(), new ArrayList<>());
-//        }
-
-        // Thêm các case khác nếu cần (admin, owner, shipper)
         return new User(id, username, password, email, phone, fullName, avatarUrl, userType, isActive, createdAt);
     }
 }

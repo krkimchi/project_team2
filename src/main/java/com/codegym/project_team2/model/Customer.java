@@ -55,7 +55,7 @@ public class Customer extends User {
         cart.add(item);
     }
 
-    // Chỉnh sửa số lượng món ăn trong giỏ ( giỏ hàng dùng session )
+    // Chỉnh sửa số lượng món ăn trong giỏ
     public void updateCartQuantity(Food food, int quantity) {
         for (CartItem item : cart) {
             if (item.getDishId() == food.getId()) {

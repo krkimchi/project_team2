@@ -19,6 +19,18 @@
             border-bottom: 1px solid #ddd;
             padding: 15px 0;
             display: flex;
+            align-items: center;
+            gap: 20px; /* Khoảng cách giữa ảnh và thông tin */
+        }
+        .cart-item img {
+            width: 80px; /* Kích thước ảnh nhỏ */
+            height: 80px;
+            object-fit: cover; /* Đảm bảo ảnh không bị méo */
+            border-radius: 5px; /* Bo góc ảnh */
+        }
+        .cart-item-details {
+            flex-grow: 1; /* Chiếm toàn bộ không gian còn lại */
+            display: flex;
             justify-content: space-between;
             align-items: center;
         }
@@ -52,6 +64,22 @@
 <body>
 <div class="cart-container">
     <h1 class="text-center mb-4">Giỏ Hàng</h1>
+
+    <!-- Hiển thị thông báo nếu có -->
+    <c:if test="${not empty sessionScope.message}">
+        <div class="alert alert-success text-center">
+                ${sessionScope.message}
+            <c:remove var="message" scope="session"/> <!-- Xóa thông báo sau khi hiển thị -->
+        </div>
+    </c:if>
+    <c:if test="${not empty sessionScope.error}">
+        <div class="alert alert-danger text-center">
+                ${sessionScope.error}
+            <c:remove var="error" scope="session"/> <!-- Xóa thông báo lỗi sau khi hiển thị -->
+        </div>
+    </c:if>
+
+    <!-- Kiểm tra giỏ hàng rỗng -->
     <c:if test="${empty sessionScope.customer.cart}">
         <div class="alert alert-warning text-center">
             Giỏ hàng của bạn đang trống! <a href="/customer">Tiếp tục mua sắm</a>
@@ -62,23 +90,29 @@
     <c:if test="${not empty sessionScope.customer.cart}">
         <c:forEach var="item" items="${sessionScope.customer.cart}">
             <div class="cart-item">
-                <div>
-                    <h5>${item.food.name}</h5>
-                    <p>Số lượng:
-                    <div class="quantity-control">
-                        <a href="/customer?action=update_cart&food_id=${item.food.id}&quantity=${item.quantity - 1}"
-                           class="btn btn-outline-secondary" <c:if test="${item.quantity <= 1}">disabled</c:if>>-</a>
-                        <span>${item.quantity}</span>
-                        <a href="/customer?action=update_cart&food_id=${item.food.id}&quantity=${item.quantity + 1}"
-                           class="btn btn-outline-secondary">+</a>
+                <!-- Ảnh nhỏ bên trái -->
+                <img src="/resources/images/food/${item.food.foodImg}" alt="${item.food.name}">
+
+                <!-- Thông tin bên phải -->
+                <div class="cart-item-details">
+                    <div>
+                        <h5>${item.food.name}</h5>
+                        <p>Số lượng:
+                        <div class="quantity-control">
+                            <a href="/customer?action=update_cart&food_id=${item.food.id}&quantity=${item.quantity - 1}"
+                               class="btn btn-outline-secondary" <c:if test="${item.quantity <= 1}">disabled</c:if>>-</a>
+                            <span>${item.quantity}</span>
+                            <a href="/customer?action=update_cart&food_id=${item.food.id}&quantity=${item.quantity + 1}"
+                               class="btn btn-outline-secondary">+</a>
+                        </div>
+                        </p>
+                        <p>Giá: <fmt:formatNumber value="${item.food.price}" type="number" groupingUsed="true"/> VND</p>
+                        <p>Thành tiền: <fmt:formatNumber value="${item.food.price * item.quantity}" type="number" groupingUsed="true"/> VND</p>
                     </div>
-                    </p>
-                    <p>Giá: <fmt:formatNumber value="${item.food.price}" type="number" groupingUsed="true"/> VND</p>
-                    <p>Thành tiền: <fmt:formatNumber value="${item.food.price * item.quantity}" type="number" groupingUsed="true"/> VND</p>
-                </div>
-                <div>
-                    <a href="/customer?action=remove_from_cart&food_id=${item.food.id}"
-                       class="btn btn-danger btn-sm btn-action">Xóa</a>
+                    <div>
+                        <a href="/customer?action=remove_from_cart&food_id=${item.food.id}"
+                           class="btn btn-danger btn-sm btn-action">Xóa</a>
+                    </div>
                 </div>
             </div>
         </c:forEach>
