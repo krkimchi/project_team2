@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <html>
 <head>
     <title>My Restaurant</title>
@@ -42,7 +44,6 @@
             width: 150px;
             height: 150px;
             object-fit: cover;
-            border: 4px solid var(--primary);
             box-shadow: var(--shadow);
         }
 
@@ -107,30 +108,49 @@
     <div class="row justify-content-center">
         <div class="col-12 col-md-8 col-lg-6">
             <div class="text-center mb-4">
-                <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5" class="restaurant-logo rounded-circle" alt="Restaurant Logo">
+                <img src="/resources/images/restaurant/${restaurant.getRestaurantLogo()}"
+                     class="restaurant-logo rounded-circle" alt="Restaurant Logo">
             </div>
             <div class="card shadow-sm">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h2 class="card-title">Italian Delight</h2>
-                        <span class="badge bg-success fs-6">Open Now</span>
+                        <h2 class="card-title">${restaurant.getRestaurantName()}</h2>
+                        <c:choose>
+                            <c:when test="${restaurant.isOpen()}">
+                                <span class="badge bg-success fs-6">Open Now</span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="badge bg-danger fs-6">Closed</span>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                     <div class="restaurant-details">
-                        <p><strong>Restaurant ID:</strong> #ITD12345</p>
-                        <p><strong>Owner:</strong> Maria Romano</p>
-                        <p><strong>Contact:</strong> +1 (555) 123-4567</p>
-                        <p><strong>Address:</strong> 123 Pasta Street, Italian Quarter, NY 10001</p>
+                        <p><strong>Owner:</strong> ${restaurant.getOwnerName()}</p>
+                        <p><strong>Contact:</strong> ${restaurant.getRestaurantPhone()}</p>
+                        <p><strong>Address:</strong> ${restaurant.getRestaurantAddress()}</p>
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-4">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#editModal">
                             <i class="bi bi-pencil-square"></i> Edit Information
                         </button>
                         <button type="button" class="btn btn-secondary">
                             <i class="bi bi-menu-button-wide"></i> View Menu
                         </button>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#closeRestaurantModal">
-                            <i class="bi bi-x-circle"></i> Close Restaurant
-                        </button>
+                        <c:choose>
+                            <c:when test="${restaurant.isOpen()}">
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                        data-bs-target="#closeRestaurantModal">
+                                    <i class="bi bi-x-circle">Close Restaurant</i>
+                                </button>
+                            </c:when>
+                            <c:otherwise>
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                        data-bs-target="#openRestaurantModal">
+                                    <i class="bi bi-x-circle">Open Restaurant</i>
+                                </button>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </div>
@@ -161,7 +181,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="address" class="form-label">Address</label>
-                        <textarea class="form-control" id="address" rows="3">123 Pasta Street, Italian Quarter, NY 10001</textarea>
+                        <textarea class="form-control" id="address"
+                                  rows="3">123 Pasta Street, Italian Quarter, NY 10001</textarea>
                     </div>
                 </form>
             </div>
@@ -173,7 +194,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="closeRestaurantModal" tabindex="-1" aria-labelledby="closeRestaurantModalLabel" aria-hidden="true">
+<div class="modal fade" id="closeRestaurantModal" tabindex="-1" aria-labelledby="closeRestaurantModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -184,8 +206,32 @@
                 <p>Are you sure you want to close the restaurant? This will mark the restaurant as closed.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger">Confirm Close</button>
+                <form method="get" action="/restaurants">
+                    <input type="hidden" name="action" value="closeRestaurant">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Confirm Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="openRestaurantModal" tabindex="-1" aria-labelledby="openRestaurantModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="openRestaurantModalLabel">Open Restaurant</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you ready to open the restaurant? This will mark the restaurant as open now.</p>
+            </div>
+            <div class="modal-footer">
+                <form method="get" action="/restaurants">
+                    <input type="hidden" name="action" value="openRestaurant">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Confirm Open</button>
+                </form>
             </div>
         </div>
     </div>
