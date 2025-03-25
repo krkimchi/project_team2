@@ -17,8 +17,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet (name = "RestaurantRatingsServlet", value = "/restaurant-ratings")
-public class RestaurantRatingsServlet extends HttpServlet {
+@WebServlet (name = "RestaurantRatingsController", value = "/restaurant-ratings")
+public class RestaurantRatingsController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
