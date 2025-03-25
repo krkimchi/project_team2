@@ -1,10 +1,12 @@
 package com.codegym.project_team2.repository;
 
+import com.codegym.project_team2.model.Customer;
 import com.codegym.project_team2.model.User;
 import com.codegym.project_team2.util.BaseRepository;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class UserRepository implements IUserRepository {
 
@@ -58,6 +60,12 @@ public class UserRepository implements IUserRepository {
         boolean isActive = resultSet.getBoolean("is_active");
         LocalDateTime createdAt = resultSet.getTimestamp("created_at").toLocalDateTime();
 
+        // Tạo đối tượng phù hợp với userType
+//        if (userType == User.UserType.customer) {
+//            return new Customer(id, username, password, email, phone, fullName, avatarUrl, userType, isActive, createdAt, new ArrayList<>(), new ArrayList<>());
+//        }
+
+        // Thêm các case khác nếu cần (admin, owner, shipper)
         return new User(id, username, password, email, phone, fullName, avatarUrl, userType, isActive, createdAt);
     }
 }

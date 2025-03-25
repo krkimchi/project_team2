@@ -34,6 +34,14 @@ public class Customer extends User {
         return foodController.searchFood(keyword);
     }
 
+    public List<CartItem> getCart() {
+        return cart;
+    }
+
+    public void setCart(List<CartItem> cart) {
+        this.cart = cart;
+    }
+
     // Thêm món ăn vào giỏ
     public void addToCart(Food food, int quantity) {
         for (CartItem item : cart) {
@@ -47,11 +55,10 @@ public class Customer extends User {
         cart.add(item);
     }
 
-
     // Chỉnh sửa số lượng món ăn trong giỏ ( giỏ hàng dùng session )
     public void updateCartQuantity(Food food, int quantity) {
         for (CartItem item : cart) {
-            if (item.getFood().equals(food)) {
+            if (item.getDishId() == food.getId()) {
                 item.setQuantity(quantity);
             }
         }

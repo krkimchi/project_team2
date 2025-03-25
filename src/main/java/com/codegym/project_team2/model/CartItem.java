@@ -9,6 +9,10 @@ public class CartItem {
         this.quantity = quantity;
     }
 
+    public int getDishId() {
+        return food.getId();
+    }
+
     public Food getFood() {
         return food;
     }
