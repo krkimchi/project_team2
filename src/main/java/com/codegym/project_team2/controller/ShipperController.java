@@ -19,7 +19,7 @@ public class ShipperController extends HttpServlet {
             action = "";
         }
         switch (action) {
-            case "add":
+            case "detail":
                 break;
             default:
                 showOverview(request,response);
