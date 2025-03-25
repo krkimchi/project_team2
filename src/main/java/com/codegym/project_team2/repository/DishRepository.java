@@ -1,0 +1,47 @@
+package com.codegym.project_team2.repository;
+
+import com.codegym.project_team2.model.Dish;
+import com.codegym.project_team2.util.BaseRepository;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+public class DishRepository implements IDishRepository {
+    final String FIND_BY_RESTAURANT_ID = "select * from dishes where restaurant_id = ?";
+
+    @Override
+    public List<Dish> showByRestaurantId(int restaurantId) {
+        List<Dish> dishList = new ArrayList<>();
+        try {
+            Connection connection = BaseRepository.getConnectDB();
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_RESTAURANT_ID);
+            preparedStatement.setInt(1, restaurantId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                 dishList.add(mapToDish(resultSet));
+            }
+            return dishList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private Dish mapToDish(ResultSet resultSet) throws SQLException {
+        int id = resultSet.getInt("id");
+        int restaurantId = resultSet.getInt("restaurant_id");
+        String dishName = resultSet.getString("dish_name");
+        float dishPrice = resultSet.getFloat("dish_price");
+        String dishImg = resultSet.getString("dish_img");
+        String description = resultSet.getString("description");
+        boolean isAvailable = resultSet.getBoolean("is_available");
+        LocalDateTime createdAt = resultSet.getTimestamp("created_at").toLocalDateTime();
+
+        return new Dish(id, restaurantId, dishName, dishPrice, dishImg, description, isAvailable, createdAt);
+    }
+}

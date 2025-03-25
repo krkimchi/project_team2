@@ -104,6 +104,7 @@
     </style>
 </head>
 <body>
+<c:import url="../../view/layout/owner_header.jsp"/>
 <div class="container-fluid p-4">
     <div class="row justify-content-center">
         <div class="col-12 col-md-8 col-lg-6">
@@ -134,9 +135,9 @@
                                 data-bs-target="#editModal">
                             <i class="bi bi-pencil-square"></i> Edit Information
                         </button>
-                        <button type="button" class="btn btn-secondary">
+                        <a type="button" class="btn btn-secondary" href="/menus?action=showMenu">
                             <i class="bi bi-menu-button-wide"></i> View Menu
-                        </button>
+                        </a>
                         <c:choose>
                             <c:when test="${restaurant.isOpen()}">
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal"
