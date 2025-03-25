@@ -64,16 +64,20 @@
             color: var(--white-color);
         }
         tr:hover { background-color: #f5f5f5; }
+        .icon {
+            font-size: 18px;
+            margin-right: 5px;
+        }
     </style>
 </head>
 <body>
 <div class="wrapper">
-    <h1>Restaurant Ratings</h1>
+    <h1><i class="bx bx-star icon"></i>Restaurant Ratings</h1>
     <table>
         <tr>
-            <th>Restaurant Name</th>
-            <th>Average Rating</th>
-            <th>Review Count</th>
+            <th><i class="bx bx-food-menu icon"></i>Restaurant Name</th>
+            <th><i class="bx bx-star icon"></i>Average Rating</th>
+            <th><i class="bx bx-comment-dots icon"></i>Review Count</th>
         </tr>
         <c:forEach items="${ratings}" var="rating">
             <tr>
@@ -86,6 +90,7 @@
 </div>
 </body>
 </html>
+
 
 
 

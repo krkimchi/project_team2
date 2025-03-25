@@ -1,15 +1,8 @@
-package com.codegym.project_team2.controller;
+package com.codegym.project_team2.repository;
 
 import com.codegym.project_team2.model.RestaurantRating;
 import com.codegym.project_team2.util.BaseRepository;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,11 +10,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet (name = "RestaurantRatingsController", value = "/restaurant-ratings")
-public class RestaurantRatingsController extends HttpServlet {
+public class RestaurantRatingRepository implements IRestaurantRatingRepository {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public List<RestaurantRating> getAllRatings() throws SQLException {
         List<RestaurantRating> ratings = new ArrayList<>();
         try (Connection conn = BaseRepository.getConnectDB()) {
             PreparedStatement ps = conn.prepareStatement(
@@ -39,11 +31,7 @@ public class RestaurantRatingsController extends HttpServlet {
                         rs.getInt("reviewCount")
                 ));
             }
-        } catch (SQLException e) {
-            throw new ServletException("Database access error!", e);
         }
-        request.setAttribute("ratings", ratings);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/view/restaurant/rating.jsp");
-        dispatcher.forward(request, response);
+        return ratings;
     }
 }
