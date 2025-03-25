@@ -21,6 +21,7 @@ public class ShipperController extends HttpServlet {
         switch (action) {
             case "detail":
                 break;
+            case "list":
             default:
                 showOverview(request,response);
         }
