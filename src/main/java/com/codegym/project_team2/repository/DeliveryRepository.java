@@ -23,7 +23,7 @@ public class DeliveryRepository implements IDeliveryRepository {
                 String restaurantName = resultSet.getString("RestaurantName");
                 String customerName = resultSet.getString("CustomerName");
                 String dishesWithQuantity = resultSet.getString("DishesWithQuantity");
-                Timestamp pickkupTime = resultSet.getTimestamp("PickkupTime");
+                Timestamp pickkupTime = resultSet.getTimestamp("PickupTime");
                 Timestamp deliverdTime = resultSet.getTimestamp("DeliveredTime");
                 String deliveryStatus = resultSet.getString("DeliveryStatus");
                 DeliveryItem deliveryItem = new DeliveryItem(orderId, restaurantName, customerName, dishesWithQuantity, pickkupTime, deliverdTime, deliveryStatus);

@@ -117,7 +117,7 @@
                     <th></th>
                 </tr>
                 </thead>
-                <c:forEach var="item" items="${deliveryList}">
+                <c:forEach var="item" items="${deliveryItems}">
                     <tr>
                         <td><c:out value="${item.customerName}"/></td>
                         <td><c:out value="${item.restaurantName}"/></td>
