@@ -6,60 +6,9 @@
     <title>Giỏ Hàng</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
-        }
-        .cart-container {
-            margin: 50px auto;
-            max-width: 800px;
-        }
-        .cart-item {
-            border-bottom: 1px solid #ddd;
-            padding: 15px 0;
-            display: flex;
-            align-items: center;
-            gap: 20px; /* Khoảng cách giữa ảnh và thông tin */
-        }
-        .cart-item img {
-            width: 80px; /* Kích thước ảnh nhỏ */
-            height: 80px;
-            object-fit: cover; /* Đảm bảo ảnh không bị méo */
-            border-radius: 5px; /* Bo góc ảnh */
-        }
-        .cart-item-details {
-            flex-grow: 1; /* Chiếm toàn bộ không gian còn lại */
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .cart-total {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-        .btn-action {
-            margin-left: 10px;
-        }
-        .quantity-control {
-            display: flex;
-            align-items: center;
-        }
-        .quantity-control a {
-            width: 30px;
-            height: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-        }
-        .quantity-control span {
-            margin: 0 10px;
-            width: 30px;
-            text-align: center;
-        }
-    </style>
+
+    <c:import url="../../view/layout/header.jsp"/>
+    <link rel="stylesheet" type="text/css" href="/resources/css/customer/cart.css">
 </head>
 <body>
 <div class="cart-container">

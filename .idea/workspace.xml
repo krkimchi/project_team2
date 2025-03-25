@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="52407724-0aed-446c-8325-b18439bf49b1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/model/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/model/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/repository/UserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/view/customer/cart.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view/customer/cart.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/view/customer/home.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view/customer/home.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/view/customer/search.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view/customer/search.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/view/layout/header.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view/layout/header.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +37,13 @@
         </projects_view>
       </state>
     </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -84,6 +92,7 @@
     "Tomcat Server.Tomcat 9.0.100.executor": "Run",
     "git-widget-placeholder": "feature/customer",
     "kotlin-language-version-configured": "true",
+    "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
@@ -216,7 +225,7 @@
       <workItem from="1742816970536" duration="153000" />
       <workItem from="1742817390396" duration="18000" />
       <workItem from="1742818123860" duration="273000" />
-      <workItem from="1742826004355" duration="9332000" />
+      <workItem from="1742826004355" duration="10648000" />
     </task>
     <servers />
   </component>
