@@ -25,7 +25,7 @@ public class RevenueController extends HttpServlet {
         try {
             List<Revenue> topRevenues = revenueRepository.getTop20Restaurants();
             request.setAttribute("topRevenues", topRevenues);
-            request.getRequestDispatcher("/view/restaurant/revenue.jsp").forward(request, response);
+            request.getRequestDispatcher("/view/admin/revenue.jsp").forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error");

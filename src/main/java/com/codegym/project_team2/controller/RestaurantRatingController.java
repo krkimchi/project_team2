@@ -28,7 +28,7 @@ public class RestaurantRatingController extends HttpServlet {
             throw new ServletException("Database access error!", e);
         }
         request.setAttribute("ratings", ratings);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/view/restaurant/ratings.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/view/admin/rating.jsp");
         dispatcher.forward(request, response);
     }
 }
