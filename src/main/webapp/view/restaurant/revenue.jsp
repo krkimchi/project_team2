@@ -74,11 +74,15 @@
             color: var(--white-color);
         }
         tr:hover { background-color: #f5f5f5; }
+        .icon {
+            font-size: 18px;
+            margin-right: 5px;
+        }
     </style>
 </head>
 <body>
 <div class="wrapper">
-    <h1>Top 20 Restaurants Revenue</h1>
+    <h1><i class="bx bx-chart icon"></i>Top 20 Restaurants Revenue</h1>
     <canvas id="revenueChart" width="400" height="200"></canvas>
     <script>
         const ctx = document.getElementById('revenueChart').getContext('2d');
@@ -120,5 +124,3 @@
 </div>
 </body>
 </html>
-
-
