@@ -71,10 +71,17 @@
             Tổng tiền: <fmt:formatNumber value="${total}" type="number" groupingUsed="true"/> VND
         </div>
 
-        <!-- Nút đặt hàng -->
-        <div class="text-end mt-3">
-            <a href="/customer?action=place_order" class="btn btn-success">Đặt Hàng</a>
-        </div>
+        <!-- Trường nhập ghi chú và nút đặt hàng -->
+        <form action="/customer" method="post" accept-charset="UTF-8">
+            <input type="hidden" name="action" value="place_order">
+            <div class="order-note">
+                <label for="orderNote" class="form-label">Ghi chú cho đơn hàng:</label>
+                <textarea class="form-control" id="orderNote" name="note" rows="3" placeholder="Nhập ghi chú (nếu có)"></textarea>
+            </div>
+            <div class="text-end mt-3">
+                <button type="submit" class="btn btn-success">Đặt Hàng</button>
+            </div>
+        </form>
     </c:if>
 </div>
 

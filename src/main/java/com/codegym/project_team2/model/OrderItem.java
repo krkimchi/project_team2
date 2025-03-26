@@ -2,10 +2,9 @@ package com.codegym.project_team2.model;
 
 public class OrderItem {
     private int id;
-    private Food food; // Món ăn trong đơn hàng
-    private int quantity; // Số lượng món ăn
+    private Food food;
+    private int quantity;
 
-    // Constructor, Getter and Setter
     public OrderItem() {}
 
     public OrderItem(int id, Food food, int quantity) {
