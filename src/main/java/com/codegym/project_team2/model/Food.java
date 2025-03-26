@@ -1,5 +1,7 @@
 package com.codegym.project_team2.model;
 
+import java.util.Objects;
+
 public class Food {
     private int id;
     private int restaurantId;
@@ -9,21 +11,19 @@ public class Food {
     private String description;
     boolean isAvailable;
     String createdAt;
-    private String restaurantName;
 
     public Food() {
     }
 
-    public Food(boolean isAvailable, int id, int restaurantId, String name, double price, String foodImg, String description, String createdAt, String restaurantName) {
-        this.isAvailable = isAvailable;
+    public Food(int id, int restaurantId, String name, double price, String foodImg, String description, boolean isAvailable, String createdAt) {
         this.id = id;
         this.restaurantId = restaurantId;
         this.name = name;
         this.price = price;
         this.foodImg = foodImg;
         this.description = description;
+        this.isAvailable = isAvailable;
         this.createdAt = createdAt;
-        this.restaurantName = restaurantName;
     }
 
     public int getId() {
@@ -90,11 +90,16 @@ public class Food {
         this.createdAt = createdAt;
     }
 
-    public String getRestaurantName() {
-        return restaurantName;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Food food = (Food) o;
+        return id == food.id;
     }
 
-    public void setRestaurantName(String restaurantName) {
-        this.restaurantName = restaurantName;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

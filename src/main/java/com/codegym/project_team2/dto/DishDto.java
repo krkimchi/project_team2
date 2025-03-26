@@ -1,4 +1,4 @@
-package com.codegym.project_team2.model;
+package com.codegym.project_team2.dto;
 
 public class DishDto {
     private int id;

@@ -1,5 +1,6 @@
 package com.codegym.project_team2.model;
 
+import com.codegym.project_team2.dto.DishDto;
 import com.codegym.project_team2.service.*;
 
 import java.time.LocalDateTime;
@@ -34,16 +35,31 @@ public class Customer extends User {
         return foodController.searchFood(keyword);
     }
 
+    public List<CartItem> getCart() {
+        return cart;
+    }
+
+    public void setCart(List<CartItem> cart) {
+        this.cart = cart;
+    }
+
     // Thêm món ăn vào giỏ
     public void addToCart(Food food, int quantity) {
+        for (CartItem item : cart) {
+            if (item.getFood().equals(food)) {
+                item.setQuantity(item.getQuantity() + quantity);
+                return;
+            }
+        }
+
         CartItem item = new CartItem(food, quantity);
         cart.add(item);
     }
 
-    // Chỉnh sửa số lượng món ăn trong giỏ ( giỏ hàng dùng session )
+    // Chỉnh sửa số lượng món ăn trong giỏ
     public void updateCartQuantity(Food food, int quantity) {
         for (CartItem item : cart) {
-            if (item.getFood().equals(food)) {
+            if (item.getDishId() == food.getId()) {
                 item.setQuantity(quantity);
             }
         }

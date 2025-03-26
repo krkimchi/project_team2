@@ -1,6 +1,6 @@
 package com.codegym.project_team2.repository;
 
-import com.codegym.project_team2.model.DishDto;
+import com.codegym.project_team2.dto.DishDto;
 import com.codegym.project_team2.model.Food;
 import com.codegym.project_team2.util.BaseRepository;
 
@@ -12,6 +12,7 @@ public class FoodRepository implements IFoodRepository {
     private final int MOST_FOOD_SHOW = 6;
     private final String MOST_ORDER_FOOD = "call get_most_ordered_food(?)";
     private final String SEARCH_FOOD = "call search_food(?)";
+    private final String SEARCH_FOOD_BY_ID = "select * from dishes where dishes.id = ?";
 
     @Override
     public List<DishDto> getMostOrderedFoods() {
@@ -63,5 +64,32 @@ public class FoodRepository implements IFoodRepository {
             throw new RuntimeException(e);
         }
         return foodList;
+    }
+
+    @Override
+    public Food getFoodById(int id) {
+        Food food = null;
+        Connection connection = BaseRepository.getConnectDB();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_FOOD_BY_ID);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int dishId = resultSet.getInt("id");
+                int restaurantId = resultSet.getInt("restaurant_id");
+                String dishName = resultSet.getString("dish_name");
+                double dishPrice = Double.parseDouble(resultSet.getString("dish_price"));
+                String dishImg = resultSet.getString("dish_img");
+                String dishDesc = resultSet.getString("description");
+                boolean isAvailable = resultSet.getBoolean("is_available");
+                String createdAt = resultSet.getString("created_at");
+                food = new Food(dishId, restaurantId, dishName, dishPrice, dishImg, dishDesc, isAvailable, createdAt);
+                return food;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error when getting food by id :" + e.getMessage());
+            throw new RuntimeException(e);
+        }
+        return food;
     }
 }
