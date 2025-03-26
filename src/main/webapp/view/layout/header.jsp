@@ -39,7 +39,6 @@
         <li class="nav-item"><a class="nav-link" href="/customer?action=cart">Carts</a></li>
         <li class="nav-item"><a class="nav-link" href="/customer?action=order_history">Oder History</a></li>
         <li class="nav-item"><a class="nav-link" href="/customer?action=profile">My Profile</a></li>
-        <li class="nav-item"><a class="nav-link" href="/customer?action=logout">Logout</a></li>
       </ul>
     </div>
     <form action="/customer" method="get" class="d-flex justify-content-end align-items-center">

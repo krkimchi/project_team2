@@ -58,7 +58,7 @@
     <!-- Hiển thị thông tin người dùng -->
     <c:if test="${not empty user}">
         <div class="text-center">
-            <img src="${user.avatarUrl != null ? user.avatarUrl : '/resources/images/default-avatar.jpg'}"
+            <img src="/resources/images/customer/${user.avatarUrl}"
                  alt="Avatar" class="profile-avatar">
         </div>
         <div class="profile-info">
@@ -83,6 +83,11 @@
         </div>
         <div class="text-center mt-4">
             <a href="/customer" class="btn btn-primary">Quay lại</a>
+            <!-- Thêm nút đăng xuất -->
+            <form action="/customer" method="post" style="display: inline;">
+                <input type="hidden" name="action" value="logout">
+                <button type="submit" class="btn btn-danger">Đăng xuất</button>
+            </form>
         </div>
     </c:if>
 

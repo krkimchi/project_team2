@@ -44,10 +44,6 @@ public class CustomerController extends HttpServlet {
                 showProfile(req, resp);
                 break;
 
-            case "logout":
-                showLogout(req, resp);
-                break;
-
             case "update_cart":
                 updateCart(req, resp);
                 break;
@@ -93,9 +89,6 @@ public class CustomerController extends HttpServlet {
             }
         }
         resp.sendRedirect("/customer?action=cart");
-    }
-
-    private void showLogout(HttpServletRequest req, HttpServletResponse resp) {
     }
 
     private void showProfile(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -162,7 +155,17 @@ public class CustomerController extends HttpServlet {
             case "place_order":
                 placeOrder(req, resp);
                 break;
+
+            case "logout":
+                doLogout(req, resp);
+                break;
         }
+    }
+
+    private void doLogout(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        req.getSession().removeAttribute("customer");
+        req.getSession().invalidate();
+        resp.sendRedirect("/login");
     }
 
     private void submitShipperRating(HttpServletRequest req, HttpServletResponse resp) {
