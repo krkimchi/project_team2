@@ -1,5 +1,7 @@
 package com.codegym.project_team2.controller;
 
+import com.codegym.project_team2.model.CartItem;
+import com.codegym.project_team2.model.Customer;
 import com.codegym.project_team2.model.User;
 import com.codegym.project_team2.repository.UserRepository;
 import com.codegym.project_team2.service.IUserService;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @WebServlet(name = "LoginController", value = "/login")
 public class LoginController extends HttpServlet {
@@ -22,22 +25,40 @@ public class LoginController extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         User user = userService.login(username);
-
         if (user != null && user.getPassword().equals(password)) {
             HttpSession session = request.getSession();
             String userType = String.valueOf(user.getUserType());
+            session.setAttribute("user", user);
+            session.setAttribute("userType", user.getUserType());
             switch (userType) {
                 case "admin":
                     break;
                 case "owner":
-                    request.setAttribute("user", user);
-                    request.getRequestDispatcher("/view/owner/owner.jsp").forward(request, response);
+                    response.sendRedirect("/view/owner/owner.jsp");
                     break;
                 case "shipper":
                     break;
-                default:
-                    session.setAttribute("user", user);
+                case "customer":
+                    Customer customer = new Customer(
+                            user.getId(),
+                            user.getUsername(),
+                            user.getPassword(),
+                            user.getEmail(),
+                            user.getPhone(),
+                            user.getFullName(),
+                            user.getAvatarUrl(),
+                            user.getUserType(),
+                            user.isActive(),
+                            user.getCreatedAt(),
+                            new ArrayList<>(), // orderHistory
+                            new ArrayList<>()  // cart
+                    );
+                    session.setAttribute("customer", customer);
                     session.setAttribute("userType", user.getUserType());
+
+                    response.sendRedirect("/customer");
+                    break;
+                default:
                     response.sendRedirect("/index.jsp");
                     break;
             }

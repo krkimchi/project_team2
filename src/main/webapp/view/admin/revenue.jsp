@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Owner
-  Date: 3/24/2025
-  Time: 11:05 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -12,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Top 20 Restaurants Revenue</title>
+    <title>Top 20 Restaurants and Shippers</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <style>
@@ -41,8 +34,12 @@
             background-color: var(--background-color);
         }
         .wrapper {
-            width: 80%;
-            max-width: 800px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            width: 100%;
+            max-width: 1300px;
             background-color: var(--white-color);
             border-radius: 15px;
             padding: 20px;
@@ -51,6 +48,10 @@
             overflow: hidden;
             transition: var(--transition-3s);
         }
+        .chart-container {
+            width: 48%;
+        }
+
         h1 {
             text-align: center;
             color: var(--primary-color);
@@ -74,53 +75,93 @@
             color: var(--white-color);
         }
         tr:hover { background-color: #f5f5f5; }
-        .icon {
-            font-size: 18px;
-            margin-right: 5px;
-        }
     </style>
 </head>
 <body>
 <div class="wrapper">
-    <h1><i class="bx bx-chart icon"></i>Top 20 Restaurants Revenue</h1>
-    <canvas id="revenueChart" width="400" height="200"></canvas>
-    <script>
-        const ctx = document.getElementById('revenueChart').getContext('2d');
-        const labels = [];
-        const data = [];
+    <div class="chart-container">
+        <h1><i class="bx bx-chart icon"></i>Top 20 Restaurants Revenue</h1>
+        <canvas id="revenueChart" width="400" height="200"></canvas>
+        <script>
+            const ctx = document.getElementById('revenueChart').getContext('2d');
+            const labels = [];
+            const data = [];
 
-        <c:forEach var="revenue" items="${topRevenues}">
-        labels.push('${revenue.restaurantName} (${revenue.month}/${revenue.year})');
-        data.push(${revenue.totalRevenue});
-        </c:forEach>
+            <c:forEach var="revenue" items="${topRestaurants}">
+            labels.push('${revenue.restaurantName} (${revenue.month}/${revenue.year})');
+            data.push(${revenue.totalRevenue});
+            </c:forEach>
 
-        const chartData = {
-            labels: labels,
-            datasets: [{
-                label: 'Revenue (in USD)',
-                data: data,
-                borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderWidth: 1
-            }]
-        };
+            const chartData = {
+                labels: labels,
+                datasets: [{
+                    label: 'RestaurantRevenue (in USD)',
+                    data: data,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderWidth: 1
+                }]
+            };
 
-        const config = {
-            type: 'bar',
-            data: chartData,
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Top 20 Restaurants Revenue by Month'
+            const config = {
+                type: 'bar',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Top 20 Restaurants RestaurantRevenue by Month'
+                        }
                     }
                 }
-            }
-        };
+            };
 
-        const revenueChart = new Chart(ctx, config);
-    </script>
+            const revenueChart = new Chart(ctx, config);
+        </script>
+    </div>
+
+    <div class="chart-container">
+        <h1><i class="bx bx-chart icon"></i>Top 20 Shippers Revenue</h1>
+        <canvas id="shipperChart" width="400" height="200"></canvas>
+        <script>
+            const shipperCtx = document.getElementById('shipperChart').getContext('2d');
+            const shipperLabels = [];
+            const shipperData = [];
+
+            <c:forEach var="shipper" items="${topShippers}">
+            shipperLabels.push('${shipper.shipperName}');
+            shipperData.push(${shipper.totalOrders});
+            </c:forEach>
+
+            const shipperChartData = {
+                labels: shipperLabels,
+                datasets: [{
+                    label: 'Total Orders',
+                    data: shipperData,
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    borderWidth: 1
+                }]
+            };
+
+            const shipperConfig = {
+                type: 'bar',
+                data: shipperChartData,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Top 20 Shippers by Total Orders'
+                        }
+                    }
+                }
+            };
+
+            const shipperChart = new Chart(shipperCtx, shipperConfig);
+        </script>
+    </div>
 </div>
 </body>
 </html>

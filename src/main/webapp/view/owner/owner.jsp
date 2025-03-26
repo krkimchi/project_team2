@@ -23,11 +23,11 @@
                 <a class="nav-link" href="/">My Profile</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="/">My Restaurant</a>
+                <a class="nav-link" href="/owners?action=showRestaurant">My Restaurant</a>
             </li>
         </ul>
     </div>
 </nav>
-<h1 class="display-1">Welcome, user ${userId}</h1>
+<h1 class="display-1">Welcome, ${sessionScope.user.getUsername()}</h1>
 </body>
 </html>
