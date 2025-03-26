@@ -12,8 +12,8 @@ public class Customer extends User {
     private IOrderService orderController = new OrderService();
     private IRatingService ratingController = new RatingService();
 
-    private List<Order> orderHistory = new ArrayList<>(); // Lịch sử đơn hàng
-    private List<CartItem> cart = new ArrayList<>(); // Giỏ hàng
+    private List<Order> orderHistory = new ArrayList<>();
+    private List<CartItem> cart = new ArrayList<>();
 
     public Customer() {
         super();
@@ -66,9 +66,12 @@ public class Customer extends User {
     }
 
     // Đặt đơn hàng ( GV yêu cầu )
-    public boolean placeOrder() {
-        Order order = new Order(this, cart);
-        return orderController.save(order);
+    public boolean placeOrder(Order order) {
+        boolean success = orderController.save(order);
+        if (success) {
+            orderHistory.add(order);
+        }
+        return success;
     }
 
     // Xem lich su dat hang

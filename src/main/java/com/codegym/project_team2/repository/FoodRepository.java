@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FoodRepository implements IFoodRepository {
-    private final int MOST_FOOD_SHOW = 6;
     private final String MOST_ORDER_FOOD = "call get_most_ordered_food(?)";
     private final String SEARCH_FOOD = "call search_food(?)";
     private final String SEARCH_FOOD_BY_ID = "select * from dishes where dishes.id = ?";
@@ -20,6 +19,7 @@ public class FoodRepository implements IFoodRepository {
         Connection connection = BaseRepository.getConnectDB();
         try {
             CallableStatement callableStatement = connection.prepareCall(MOST_ORDER_FOOD);
+            int MOST_FOOD_SHOW = 6;
             callableStatement.setInt(1, MOST_FOOD_SHOW);
             callableStatement.execute();
             ResultSet resultSet = callableStatement.getResultSet();
