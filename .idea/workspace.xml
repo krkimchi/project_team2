@@ -4,26 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="52407724-0aed-446c-8325-b18439bf49b1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/config/UTF8.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/config/UTF8.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/controller/CustomerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/controller/DishesController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/model/CartItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/model/CartItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/model/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/model/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/model/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/model/OrderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/model/OrderItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/repository/FoodRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/repository/FoodRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/repository/IOrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/repository/IOrderRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/repository/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/repository/OrderRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/css/customer/cart.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/customer/cart.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/images/food/fries.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/images/food/fries1.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/images/food/wings.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/images/food/wings1.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/view/customer/cart.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view/customer/cart.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/view/customer/profile.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view/customer/profile.jsp" afterDir="false" />
-    </list>
+    <list default="true" id="52407724-0aed-446c-8325-b18439bf49b1" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -238,7 +219,7 @@
       <workItem from="1742816970536" duration="153000" />
       <workItem from="1742817390396" duration="18000" />
       <workItem from="1742818123860" duration="273000" />
-      <workItem from="1742826004355" duration="20507000" />
+      <workItem from="1742826004355" duration="20560000" />
     </task>
     <servers />
   </component>
