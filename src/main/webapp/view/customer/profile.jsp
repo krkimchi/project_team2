@@ -5,7 +5,8 @@
 <head>
     <title>Thông Tin Người Dùng</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <c:import url="../../view/layout/library.jsp"/>
+    <c:import url="../../view/layout/header.jsp"/>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -78,7 +79,7 @@
         </div>
         <div class="profile-info">
             <label>Ngày tạo:</label>
-            <span><fmt:formatDate value="${user.createdAt}" pattern="dd/MM/yyyy HH:mm:ss"/></span>
+            <span>${user.createdAt}</span>
         </div>
         <div class="text-center mt-4">
             <a href="/customer" class="btn btn-primary">Quay lại</a>
