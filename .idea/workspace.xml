@@ -6,6 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="52407724-0aed-446c-8325-b18439bf49b1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/controller/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/controller/RegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/controller/RevenueController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/controller/RevenueController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/model/Revenue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/model/RestaurantRevenue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/repository/IRevenueRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/repository/IRevenueRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/repository/RevenueRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/repository/RevenueRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/view/admin/revenue.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view/admin/revenue.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,9 +23,27 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="project_team2" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -41,7 +65,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/krkimchi/project_team2.git&quot;,
-    &quot;accountId&quot;: &quot;238ff419-74eb-44a7-be9d-63e3f95e2d91&quot;
+    &quot;accountId&quot;: &quot;1feb26fb-18bd-4c39-81a7-5dbbc2bfb8e9&quot;
   }
 }</component>
   <component name="LogFilters">
@@ -63,30 +87,31 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.Build project_team2.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;Tomcat Server.Tomcat 9.0.1002.executor&quot;: &quot;Run&quot;,
-    &quot;Tomcat Server.owner.jsp.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/restaurant&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Build project_team2.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Tomcat Server.Tomcat 9.0.1001.executor": "Run",
+    "Tomcat Server.Tomcat 9.0.1002.executor": "Run",
+    "Tomcat Server.owner.jsp.executor": "Run",
+    "git-widget-placeholder": "feature/shipper__revenue",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\project_team2\src\main\webapp\view" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="Tomcat 9.0.1002" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.1002" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+    <configuration name="Tomcat 9.0.1001" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.1001" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="Gradle : com.codegym : project_team2-1.0-SNAPSHOT.war">
@@ -96,7 +121,7 @@
         </artifact>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="3e8d6789-e360-44c6-8451-a6b24707d7da" />
+        <option name="BASE_DIRECTORY_NAME" value="0cc6c917-ed79-4992-86b3-ec3d29c1ed48" />
       </server-settings>
       <predefined_log_file enabled="true" id="Tomcat" />
       <predefined_log_file enabled="true" id="Tomcat Catalina" />
@@ -104,7 +129,7 @@
       <predefined_log_file id="Tomcat Host Manager" />
       <predefined_log_file id="Tomcat Localhost Access" />
       <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="64870" />
+        <option name="DEBUG_PORT" value="51196" />
       </RunnerSettings>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
         <option name="USE_ENV_VARIABLES" value="true" />
@@ -194,6 +219,9 @@
       <workItem from="1742817390396" duration="18000" />
       <workItem from="1742818123860" duration="273000" />
       <workItem from="1742834117274" duration="8049000" />
+      <workItem from="1742959173666" duration="406000" />
+      <workItem from="1742963652856" duration="1164000" />
+      <workItem from="1742989325322" duration="4276000" />
     </task>
     <servers />
   </component>
