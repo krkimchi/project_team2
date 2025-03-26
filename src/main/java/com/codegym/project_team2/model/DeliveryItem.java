@@ -10,8 +10,9 @@ public class DeliveryItem {
     private Timestamp pickupTime;
     private Timestamp deliveredTime;
     private String deliveryStatus;
+    private double deliveryPrice;
 
-    public DeliveryItem(int orderId, String restaurantName, String customerName, String dishesWithQuantity, java.sql.Timestamp pickkupTime, java.sql.Timestamp deliverdTime, String deliveryStatus) {
+    public DeliveryItem(int orderId, String restaurantName, String customerName, String dishesWithQuantity, java.sql.Timestamp pickkupTime, java.sql.Timestamp deliverdTime, String deliveryStatus, double deliveryPrice) {
         this.orderId = orderId;
         this.restaurantName = restaurantName;
         this.customerName = customerName;
@@ -19,6 +20,7 @@ public class DeliveryItem {
         this.pickupTime = pickupTime;
         this.deliveredTime = deliveredTime;
         this.deliveryStatus = deliveryStatus == null ? "" : deliveryStatus;
+        this.deliveryPrice = deliveryPrice;
     }
 
     public int getOrderId() {
@@ -61,4 +63,6 @@ public class DeliveryItem {
         return deliveryStatus;
     }
     public void setDeliveryStatus(String deliveryStatus) { this.deliveryStatus = deliveryStatus; }
+    public double getDeliveryPrice() { return deliveryPrice; }
+    public void setDeliveryPrice(double deliveryPrice) { this.deliveryPrice = deliveryPrice; }
 }

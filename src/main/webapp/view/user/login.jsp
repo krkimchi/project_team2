@@ -176,8 +176,8 @@
 
     <form action="/login" method="post" class="login-form" autocomplete="off">
         <div class="input-box">
-            <input type="text" class="input-field" name="email" required>
-            <label class="label">Email</label>
+            <input type="text" class="input-field" name="username" required>
+            <label class="label">Username</label>
             <i class='bx bx-envelope icon'></i>
         </div>
         <div class="input-box">

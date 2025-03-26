@@ -10,9 +10,10 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public User getUserByUserName(String username) {
-        String query = "select * from users where email = ?";
-        try (Connection connection = BaseRepository.getConnectDB();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        String query = "select * from users where username = ?";
+        try {
+            Connection connection = BaseRepository.getConnectDB();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -52,10 +53,10 @@ public class UserRepository implements IUserRepository {
         String phone = resultSet.getString("phone");
         String fullName = resultSet.getString("full_name");
         String avatarUrl = resultSet.getString("avatar_url");
-        String userTypeStr = resultSet.getString("userType");
+        String userTypeStr = resultSet.getString("user_type");
         User.UserType userType = User.UserType.valueOf(userTypeStr);
-        boolean isActive = resultSet.getBoolean("isActive");
-        LocalDateTime createdAt = resultSet.getTimestamp("createdAt").toLocalDateTime();
+        boolean isActive = resultSet.getBoolean("is_active");
+        LocalDateTime createdAt = resultSet.getTimestamp("created_at").toLocalDateTime();
 
         return new User(id, username, password, email, phone, fullName, avatarUrl, userType, isActive, createdAt);
     }
