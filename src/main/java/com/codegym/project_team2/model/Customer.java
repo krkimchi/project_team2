@@ -1,5 +1,6 @@
 package com.codegym.project_team2.model;
 
+import com.codegym.project_team2.dto.DishDto;
 import com.codegym.project_team2.service.*;
 
 import java.time.LocalDateTime;

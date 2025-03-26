@@ -2,7 +2,7 @@ package com.codegym.project_team2.controller;
 
 import com.codegym.project_team2.model.CartItem;
 import com.codegym.project_team2.model.Customer;
-import com.codegym.project_team2.model.DishDto;
+import com.codegym.project_team2.dto.DishDto;
 import com.codegym.project_team2.model.Food;
 import com.codegym.project_team2.service.FoodService;
 import com.codegym.project_team2.service.IFoodService;
