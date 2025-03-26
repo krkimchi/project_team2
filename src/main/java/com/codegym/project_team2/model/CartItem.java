@@ -1,8 +1,8 @@
 package com.codegym.project_team2.model;
 
 public class CartItem {
-    private Food food;  // Món ăn
-    private int quantity;  // Số lượng
+    private Food food;
+    private int quantity;
 
     public CartItem(Food food, int quantity) {
         this.food = food;
