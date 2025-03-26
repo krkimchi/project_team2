@@ -1,10 +1,9 @@
 package com.codegym.project_team2.controller;
 
-import com.codegym.project_team2.model.CartItem;
-import com.codegym.project_team2.model.Customer;
+import com.codegym.project_team2.model.*;
 import com.codegym.project_team2.dto.DishDto;
-import com.codegym.project_team2.model.Food;
-import com.codegym.project_team2.model.Order;
+import com.codegym.project_team2.repository.IUserRepository;
+import com.codegym.project_team2.repository.UserRepository;
 import com.codegym.project_team2.service.FoodService;
 import com.codegym.project_team2.service.IFoodService;
 
@@ -19,6 +18,7 @@ import java.util.List;
 @WebServlet(name = "CustomerServlet", urlPatterns = "/customer")
 public class CustomerController extends HttpServlet {
     private IFoodService foodService = new FoodService();
+    private IUserRepository userRepository = new UserRepository();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -98,7 +98,22 @@ public class CustomerController extends HttpServlet {
     private void showLogout(HttpServletRequest req, HttpServletResponse resp) {
     }
 
-    private void showProfile(HttpServletRequest req, HttpServletResponse resp) {
+    private void showProfile(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        Customer customer = (Customer) req.getSession().getAttribute("customer");
+        if (customer == null) {
+            req.getSession().setAttribute("error", "Vui lòng đăng nhập để xem thông tin cá nhân.");
+            resp.sendRedirect("/login");
+            return;
+        }
+
+        User user = userRepository.getUserByUserName(customer.getUsername());
+        if (user != null) {
+            req.setAttribute("user", user);
+            req.getRequestDispatcher("/view/customer/profile.jsp").forward(req, resp);
+        } else {
+            req.getSession().setAttribute("error", "Không tìm thấy thông tin người dùng.");
+            resp.sendRedirect("/customer");
+        }
     }
 
     private void showOrderHistory(HttpServletRequest req, HttpServletResponse resp) {
