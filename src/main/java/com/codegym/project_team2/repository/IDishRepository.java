@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface IDishRepository {
     List<Dish> showByRestaurantId(int restaurantId);
+
+    boolean add(Dish dish);
 }

@@ -14,4 +14,9 @@ public class DishService implements IDishService {
     public List<Dish> showByRestaurantId(int restaurantId) {
         return dishRepository.showByRestaurantId(restaurantId);
     }
+
+    @Override
+    public boolean add(Dish dish) {
+        return dishRepository.add(dish);
+    }
 }

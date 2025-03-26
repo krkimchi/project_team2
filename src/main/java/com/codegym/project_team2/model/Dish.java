@@ -27,6 +27,15 @@ public class Dish {
         this.createdAt = createdAt;
     }
 
+    public Dish (int restaurantId, String dishName, float dishPrice, String dishImg, String description, boolean isAvailable) {
+        this.restaurantId = restaurantId;
+        this.dishName = dishName;
+        this.dishPrice = dishPrice;
+        this.dishImg = dishImg;
+        this.description = description;
+        this.isAvailable = isAvailable;
+    }
+
     public int getId() {
         return id;
     }

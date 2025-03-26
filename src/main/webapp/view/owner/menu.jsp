@@ -143,33 +143,33 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form action="/menus" method="get">
                     <div class="mb-3">
+                        <input type="hidden" name="action" value="addDish">
+                        <input type="hidden" name="dishImh" value="">
                         <label class="form-label">Dish Name</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" name="dishName">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Description</label>
-                        <textarea class="form-control" rows="3"></textarea>
+                        <textarea class="form-control" rows="3" name="dishDescription"></textarea>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Price</label>
-                        <input type="number" class="form-control" step="0.01">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Image</label>
-                        <input type="file" class="form-control">
+                        <input type="number" class="form-control" step="0.01" name="dishPrice">
                     </div>
                     <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="availabilityCheck" checked>
+                        <input type="checkbox" class="form-check-input" id="availabilityCheck" checked
+                               name="isAvailable">
                         <label class="form-check-label" for="availabilityCheck">Available for Order</label>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Add Dish</button>
+                        </div>
                     </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary">Add Dish</button>
-            </div>
+
         </div>
     </div>
 </div>
@@ -183,7 +183,8 @@
             </div>
             <div class="modal-body">
                 <div class="text-center mb-3">
-                    <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141" class="dish-detail-img" alt="Dish">
+                    <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141" class="dish-detail-img"
+                         alt="Dish">
                 </div>
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4 class="mb-0">Spaghetti Carbonara</h4>
@@ -198,7 +199,8 @@
                 </div>
                 <div class="dish-description mt-3">
                     <h5>Description</h5>
-                    <p>Classic Italian pasta with eggs, cheese, pancetta, and black pepper. Served with freshly grated Pecorino Romano cheese.</p>
+                    <p>Classic Italian pasta with eggs, cheese, pancetta, and black pepper. Served with freshly grated
+                        Pecorino Romano cheese.</p>
                 </div>
             </div>
             <div class="modal-footer">
@@ -206,6 +208,6 @@
             </div>
         </div>
     </div>
-</div>`
+</div>
 </body>
 </html>

@@ -29,7 +29,28 @@ public class MenuController extends HttpServlet {
             case "showMenu":
                 showMenu(req, resp);
                 break;
+            case "addDish":
+                addDish(req, resp);
+                break;
         }
+    }
+
+    private void addDish(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        int userId = user.getId();
+        RestaurantDto restaurant = restaurantService.show(userId);
+
+        String dishName = req.getParameter("dishName");
+        float dishPrice = Float.parseFloat(req.getParameter("dishPrice"));
+        String dishImg = req.getParameter("dishImg");
+        String description = req.getParameter("description");
+        boolean isAvailable = Boolean.parseBoolean(req.getParameter("isAvailable"));
+
+        Dish dish = new Dish(restaurant.getId(), dishName, dishPrice, dishImg, description, isAvailable);
+        dishService.add(dish);
+
+        showMenu(req, resp);
     }
 
     private void showMenu(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
