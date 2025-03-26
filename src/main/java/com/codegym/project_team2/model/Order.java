@@ -1,11 +1,15 @@
 package com.codegym.project_team2.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Order {
     private int id;
-    private Customer customer;
+    private int customerId;
     private int restaurantId;
     private Integer shipperId; // Có thể null
     private String customerNote;
@@ -16,9 +20,9 @@ public class Order {
 
     public Order() {}
 
-    public Order(Customer customer, List<CartItem> items) {
-        this.customer = customer;
-        this.items = items;
+    public Order(int customerId, List<CartItem> items) {
+        this.customerId = customerId;
+        this.items = new ArrayList<>(items);
         this.restaurantId = determineRestaurantId(items); // Lấy restaurantId từ danh sách món
         this.customerNote = "";
         this.status = "pending";
@@ -26,9 +30,9 @@ public class Order {
         this.total = calculateTotal();
     }
 
-    public Order(int id, Customer customer, int restaurantId, Integer shipperId, String customerNote, String status, LocalDateTime createdAt, List<CartItem> items) {
+    public Order(int id, int customerId, int restaurantId, Integer shipperId, String customerNote, String status, LocalDateTime createdAt, List<CartItem> items) {
         this.id = id;
-        this.customer = customer;
+        this.customerId = customerId;
         this.restaurantId = restaurantId;
         this.shipperId = shipperId;
         this.customerNote = customerNote;
@@ -62,12 +66,12 @@ public class Order {
         this.id = id;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
     public int getRestaurantId() {
@@ -124,5 +128,13 @@ public class Order {
 
     public void setItems(List<CartItem> items) {
         this.items = items;
+    }
+
+    // chuyển LocalDateTime thành Date
+    public Date getCreatedAtAsDate() {
+        if (createdAt == null) {
+            return null;
+        }
+        return Date.from(createdAt.atZone(ZoneId.of("Asia/Ho_Chi_Minh")).toInstant());
     }
 }

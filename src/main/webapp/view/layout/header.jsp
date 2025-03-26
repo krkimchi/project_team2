@@ -24,6 +24,7 @@
   .navbar-nav .nav-link:hover {
     color: #689ff2 !important;
   }
+
 </style>
 <!-- Header with Navigation -->
 <header class="bg-dark text-white p-3">
@@ -39,6 +40,7 @@
         <li class="nav-item"><a class="nav-link" href="/customer?action=cart">Carts</a></li>
         <li class="nav-item"><a class="nav-link" href="/customer?action=order_history">Oder History</a></li>
         <li class="nav-item"><a class="nav-link" href="/customer?action=profile">My Profile</a></li>
+        <li class="nav-item"><a class="nav-link" href="/customer?action=order_recent">Recent Order</a></li>
       </ul>
     </div>
     <form action="/customer" method="get" class="d-flex justify-content-end align-items-center">

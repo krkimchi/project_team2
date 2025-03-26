@@ -6,6 +6,8 @@ import com.codegym.project_team2.repository.IUserRepository;
 import com.codegym.project_team2.repository.UserRepository;
 import com.codegym.project_team2.service.FoodService;
 import com.codegym.project_team2.service.IFoodService;
+import com.codegym.project_team2.service.IOrderService;
+import com.codegym.project_team2.service.OrderService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +21,7 @@ import java.util.List;
 public class CustomerController extends HttpServlet {
     private IFoodService foodService = new FoodService();
     private IUserRepository userRepository = new UserRepository();
+    private IOrderService orderService = new OrderService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -52,11 +55,43 @@ public class CustomerController extends HttpServlet {
                 removeFromCart(req, resp);
                 break;
 
+            case "order_recent":
+                viewRecentOrder(req, resp);
+                break;
+
             default:
                 showHomePage(req, resp);
                 break;
 
         }
+    }
+
+    private void viewRecentOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // Kiểm tra xem người dùng đã đăng nhập chưa
+        Customer customer = (Customer) req.getSession().getAttribute("customer");
+        if (customer == null) {
+            req.getSession().setAttribute("error", "Vui lòng đăng nhập để xem đơn hàng.");
+            resp.sendRedirect("/login");
+            return;
+        }
+        String recentOrderId = (String) req.getSession().getAttribute("recentOrderId");
+        Order recentOrder = null;
+
+        if (recentOrderId != null ) {
+            int orderId = Integer.parseInt(recentOrderId);
+            recentOrder = orderService.getOrderById(orderId);
+            List<CartItem> cartItemList = foodService.getCartItemsByOrderId(orderId);
+            if (recentOrder != null) {
+                // Gán cartItemList vào recentOrder
+                recentOrder.setItems(cartItemList);
+                // Lưu recentOrder vào request scope
+                req.setAttribute("recentOrder", recentOrder);
+                // Không cần lưu cartItemList vào session scope nữa, vì đã gán vào recentOrder
+                // req.getSession().setAttribute("cartItemList", cartItemList);
+            }
+        }
+
+        req.getRequestDispatcher("/view/customer/recent_order.jsp").forward(req, resp);
     }
 
     private void updateCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -210,7 +245,7 @@ public class CustomerController extends HttpServlet {
             }
 
             // Tạo đơn hàng
-            Order order = new Order(customer, customer.getCart());
+            Order order = new Order(customer.getId(), customer.getCart());
             order.setCustomerNote(note);
 
             // Kiểm tra xem tất cả món trong giỏ hàng có cùng restaurantId không
@@ -232,6 +267,7 @@ public class CustomerController extends HttpServlet {
             // Lưu đơn hàng
             boolean success = customer.placeOrder(order);
             if (success) {
+                req.getSession().setAttribute("recentOrderId", String.valueOf(order.getId()));
                 customer.getCart().clear();
                 req.getSession().setAttribute("message", "Đặt hàng thành công!");
             } else {

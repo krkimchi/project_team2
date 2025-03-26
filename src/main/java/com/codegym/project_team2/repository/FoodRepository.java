@@ -1,6 +1,7 @@
 package com.codegym.project_team2.repository;
 
 import com.codegym.project_team2.dto.DishDto;
+import com.codegym.project_team2.model.CartItem;
 import com.codegym.project_team2.model.Food;
 import com.codegym.project_team2.util.BaseRepository;
 
@@ -12,6 +13,7 @@ public class FoodRepository implements IFoodRepository {
     private final String MOST_ORDER_FOOD = "call get_most_ordered_food(?)";
     private final String SEARCH_FOOD = "call search_food(?)";
     private final String SEARCH_FOOD_BY_ID = "select * from dishes where dishes.id = ?";
+    private final String SELECT_ALL_FOOD_BY_ORDER_ID = "select d.* , od.dish_quantity from dishes d join order_detail od on d.id = od.dish_id join orders o on o.id = od.order_id where o.id = ?";
 
     @Override
     public List<DishDto> getMostOrderedFoods() {
@@ -91,5 +93,26 @@ public class FoodRepository implements IFoodRepository {
             throw new RuntimeException(e);
         }
         return food;
+    }
+
+    @Override
+    public List<CartItem> getCartItemsByOrderId(int orderId) {
+        List<CartItem> cartItemList = new ArrayList<>();
+        Connection connection = BaseRepository.getConnectDB();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_FOOD_BY_ORDER_ID);
+            preparedStatement.setInt(1, orderId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int dishId = resultSet.getInt("id");
+                Food food = getFoodById(dishId);
+                int dishQuantity = resultSet.getInt("dish_quantity");
+                CartItem cartItem = new CartItem(food, dishQuantity);
+                cartItemList.add(cartItem);
+            }
+            return cartItemList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

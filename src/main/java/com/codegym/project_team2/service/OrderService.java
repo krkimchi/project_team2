@@ -11,4 +11,9 @@ public class OrderService implements IOrderService {
     public boolean save(Order order) {
         return orderRepository.save(order);
     }
+
+    @Override
+    public Order getOrderById(int id) {
+        return orderRepository.getOrderById(id);
+    }
 }
