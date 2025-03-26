@@ -737,6 +737,7 @@
                     <th>Price</th>
                     <th></th>
                 </tr>
+
                 </thead>
                 <c:forEach var="item" items="${deliveryItems}">
                     <a>
