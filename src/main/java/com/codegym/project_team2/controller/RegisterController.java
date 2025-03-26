@@ -28,7 +28,7 @@ public class RegisterController extends HttpServlet {
         String fullName = request.getParameter("full_name");
         String userTypeString = request.getParameter("userType");
 
-        User.UserType userType = User.UserType.valueOf(userTypeString.toUpperCase());
+        User.UserType userType = User.UserType.valueOf(userTypeString.toLowerCase());
 
         User user = new User(0, username, password, email, phone, fullName, null, userType, true, LocalDateTime.now());
 

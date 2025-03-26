@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>Search Food</title>
+    <c:import url="../../view/layout/header.jsp"/>
     <c:import url="../../view/layout/library.jsp"/>
     <link rel="stylesheet" type="text/css" href="/resources/css/customer/home.css"/>
 </head>
@@ -25,7 +26,11 @@
                             <p class="card-text">Restaurant: ${dish.restaurantName}</p>
                             <p class="card-text">Total Ordered: ${dish.totalOrdered}</p>
                             <a href="/customer?action=dish_details&id=${dish.id}" class="btn btn-primary">Xem chi tiết</a>
-                            <button class="btn btn-success mt-2" onclick="addToCart('${dish.name}')">Thêm vào Giỏ Hàng</button>
+                            <!-- Button to Add to Cart -->
+                            <button class="btn btn-success mt-2" onclick="addToCart(${dish.id}, '${dish.name}')">
+                                Thêm vào Giỏ Hàng
+                            </button>
+
                         </div>
                     </div>
                 </div>
@@ -36,9 +41,37 @@
 
 <!-- Script để thêm món ăn vào giỏ hàng -->
 <script>
-    function addToCart(dishName) {
-        console.log('Món ăn ' + dishName + ' đã được thêm vào giỏ hàng.');
+    function addToCart(dishId, dishName) {
+        console.log('Món ăn có ID ' + dishId + ' đã được thêm vào giỏ hàng.');
         alert('Món ăn ' + dishName + ' đã được thêm vào giỏ hàng.');
+
+        // Tạo một form ẩn để gửi thông tin món ăn và số lượng vào giỏ hàng
+        var form = document.createElement("form");
+        form.method = "POST";
+        form.action = "/customer"; // Địa chỉ xử lý giỏ hàng
+
+        var dishIdInput = document.createElement("input");
+        dishIdInput.type = "hidden";
+        dishIdInput.name = "dish_id";
+        dishIdInput.value = dishId;
+        form.appendChild(dishIdInput);
+
+        var quantityInput = document.createElement("input");
+        quantityInput.type = "hidden";
+        quantityInput.name = "quantity";
+        quantityInput.value = 1; // Giả định rằng khách hàng chỉ thêm một món
+        form.appendChild(quantityInput);
+
+        // Thêm thông tin hành động vào form
+        var actionInput = document.createElement("input");
+        actionInput.type = "hidden";
+        actionInput.name = "action";
+        actionInput.value = "add_to_cart";
+        form.appendChild(actionInput);
+
+        // Thêm form vào body và submit
+        document.body.appendChild(form);
+        form.submit();
     }
 </script>
 </body>

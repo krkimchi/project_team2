@@ -1,12 +1,16 @@
 package com.codegym.project_team2.model;
 
 public class CartItem {
-    private Food food;  // Món ăn
-    private int quantity;  // Số lượng
+    private Food food;
+    private int quantity;
 
     public CartItem(Food food, int quantity) {
         this.food = food;
         this.quantity = quantity;
+    }
+
+    public int getDishId() {
+        return food.getId();
     }
 
     public Food getFood() {
@@ -23,5 +27,10 @@ public class CartItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    // Tính giá trị tổng cho món ăn trong giỏ hàng
+    public double getTotalPrice() {
+        return food.getPrice() * quantity;
     }
 }

@@ -1,8 +1,9 @@
 package com.codegym.project_team2.controller;
 
+import com.codegym.project_team2.model.RestaurantRevenue;
+import com.codegym.project_team2.model.ShipperRevenue;
 import com.codegym.project_team2.repository.IRevenueRepository;
 import com.codegym.project_team2.repository.RevenueRepository;
-import com.codegym.project_team2.model.Revenue;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +12,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet (name = "RevenueController", value = "/restaurant-revenue")
+@WebServlet (name = "RevenueController", value = "/revenue")
 public class RevenueController extends HttpServlet {
     private IRevenueRepository revenueRepository;
 
@@ -23,8 +24,12 @@ public class RevenueController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            List<Revenue> topRevenues = revenueRepository.getTop20Restaurants();
-            request.setAttribute("topRevenues", topRevenues);
+            List<RestaurantRevenue> topRestaurantRevenues = revenueRepository.getTop20Restaurants();
+            request.setAttribute("topRestaurants", topRestaurantRevenues);
+
+            List<ShipperRevenue> topShippers = revenueRepository.getTop20Shippers();
+            request.setAttribute("topShippers", topShippers);
+
             request.getRequestDispatcher("/view/admin/revenue.jsp").forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
