@@ -5,17 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52407724-0aed-446c-8325-b18439bf49b1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/controller/CustomerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/model/CartItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/model/CartItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/model/Food.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/model/Food.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/model/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/repository/IFoodRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/repository/IFoodRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/repository/IOrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/repository/IOrderRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/repository/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/repository/OrderRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/view/customer/cart.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view/customer/cart.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/view/customer/logout.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/view/layout/header.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view/layout/header.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
