@@ -6,8 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restaurant Management</title>
-
+    <title>Customer Management</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
@@ -42,8 +41,8 @@
         }
 
         .wrapper {
-            width: 80%;
-            max-width: 800px;
+            width: 90%;
+            max-width: 900px;
             background-color: var(--white-color);
             border-radius: 15px;
             padding: 20px;
@@ -117,7 +116,9 @@
         }
 
         .btn {
-            padding: 8px 16px;
+            padding: 6px 12px;
+            font-size: 14px;
+            margin: 5px 0;
             border: none;
             background-color: #007bff;
             color: white;
@@ -173,11 +174,12 @@
         }
 
         .actions button {
-            display: block;
-            width: 100%;
-            padding: 8px;
+            padding: 6px 12px;
+            font-size: 10px;
             margin: 5px 0;
             border-radius: 5px;
+            display: block;
+            width: 100%;
         }
 
         .icon {
@@ -187,6 +189,8 @@
 
         .actions {
             position: relative;
+            width: 200px;
+            text-align: center;
         }
 
         .pagination {
@@ -209,69 +213,65 @@
             background-color: #0056b3;
         }
     </style>
+
 </head>
 <body>
+
 <div class="wrapper">
-    <h2><i class="bx bx-building-house icon"></i>Restaurant Management</h2>
+    <h2><i class="bx bx-user icon"></i>Customer Management</h2>
 
     <div class="header-container">
-        <h3>List of Restaurants</h3>
+        <h3>List of Customers</h3>
         <div class="search-container">
             <button id="search-btn">
                 <i class="bx bx-search icon"></i>
             </button>
-            <input type="text" id="search" value="${searchQuery}" placeholder="Enter Restaurant ID or Name"/>
+            <input type="text" id="search" value="${searchQuery}" placeholder="Enter Customer ID or Name"/>
         </div>
     </div>
 
     <table>
         <thead>
         <tr>
-            <th>Restaurant ID</th>
-            <th>Restaurant Name</th>
-            <th>Restaurant Address</th>
-            <th>Restaurant Phone</th>
+            <th>Customer ID</th>
+            <th>Customer Name</th>
+            <th>Customer Email</th>
+            <th>Customer Phone</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="restaurant" items="${restaurants}">
+        <c:forEach var="user" items="${users}">
             <tr>
-                <td>${restaurant.id}</td>
-                <td>${restaurant.restaurantName}</td>
-                <td>${restaurant.restaurantAddress}</td>
-                <td>${restaurant.restaurantPhone}</td>
+                <td>${user.id}</td>
+                <td>${user.fullName}</td>
+                <td>${user.email}</td>
+                <td>${user.phone}</td>
                 <td class="actions">
-                    <button id="update-btn-${restaurant.id}" class="btn" onclick="showUpdateForm(${restaurant.id})">
-                        <i class="bx bx-edit-alt icon"></i>Update Restaurant
+                    <button id="update-btn-${user.id}" class="btn" onclick="showUpdateForm(${user.id})">
+                        <i class="bx bx-edit-alt icon"></i>Update User
                     </button>
-                    <form id="update-form-${restaurant.id}" action="restaurant-management" method="post" class="update-form">
+                    <form id="update-form-${user.id}" action="user-management" method="post" class="update-form">
                         <input type="hidden" name="action" value="update">
-                        <input type="hidden" name="id" value="${restaurant.id}">
+                        <input type="hidden" name="id" value="${user.id}">
                         <input type="hidden" name="currentPage" value="${currentPage}">
                         <input type="hidden" name="search" value="${searchQuery}">
                         <div class="form-group">
-                            <label for="restaurant_name">Restaurant Name:</label>
-                            <input type="text" id="restaurant_name" name="restaurant_name" value="${restaurant.restaurantName}" required>
+                            <label for="user_name">Full Name:</label>
+                            <input type="text" id="user_name" name="full_name" value="${user.fullName}" required>
                         </div>
                         <div class="form-group">
-                            <label for="restaurant_address">Restaurant Address:</label>
-                            <input type="text" id="restaurant_address" name="restaurant_address" value="${restaurant.restaurantAddress}" required>
+                            <label for="user_email">Email:</label>
+                            <input type="email" id="user_email" name="email" value="${user.email}" required>
                         </div>
                         <div class="form-group">
-                            <label for="restaurant_phone">Restaurant Phone:</label>
-                            <input type="text" id="restaurant_phone" name="restaurant_phone" value="${restaurant.restaurantPhone}" required>
+                            <label for="user_phone">Phone:</label>
+                            <input type="text" id="user_phone" name="phone" value="${user.phone}" required>
                         </div>
                         <button type="submit"><i class="bx bx-check icon"></i>Confirm Update</button>
                     </form>
-                    <form id="delete-${restaurant.id}" action="restaurant-management" method="post">
-                        <input type="hidden" name="action" value="delete">
-                        <input type="hidden" name="id" value="${restaurant.id}">
-                        <input type="hidden" name="currentPage" value="${currentPage}">
-                        <input type="hidden" name="search" value="${searchQuery}">
-                    </form>
-                    <button class="btn btn-delete" onclick="confirmAction('delete', ${restaurant.id})">
-                        <i class="bx bx-trash icon"></i>Confirm Delete
+                    <button class="btn btn-delete" onclick="confirmAction('delete', ${user.id})">
+                        <i class="bx bx-trash icon"></i>Delete User
                     </button>
                 </td>
             </tr>
@@ -281,15 +281,15 @@
 
     <div class="pagination">
         <c:if test="${currentPage > 1}">
-            <button onclick="location.href='restaurant-management?page=${currentPage-1}&search=${searchQuery}'">Previous</button>
+            <button onclick="location.href='user-management?page=${currentPage-1}&search=${searchQuery}'">Previous</button>
         </c:if>
 
         <c:forEach var="i" begin="1" end="${totalPages}">
-            <button onclick="location.href='restaurant-management?page=${i}&search=${searchQuery}'">${i}</button>
+            <button onclick="location.href='user-management?page=${i}&search=${searchQuery}'">${i}</button>
         </c:forEach>
 
         <c:if test="${currentPage < totalPages}">
-            <button onclick="location.href='restaurant-management?page=${currentPage+1}&search=${searchQuery}'">Next</button>
+            <button onclick="location.href='user-management?page=${currentPage+1}&search=${searchQuery}'">Next</button>
         </c:if>
     </div>
 
@@ -299,9 +299,9 @@
     function confirmAction(action, id) {
         var message = '';
         if (action === 'update') {
-            message = 'Are you sure you want to update this restaurant?';
+            message = 'Are you sure you want to update this customer?';
         } else if (action === 'delete') {
-            message = 'Are you sure you want to delete this restaurant?';
+            message = 'Are you sure you want to delete this customer?';
         }
 
         var confirmed = confirm(message);

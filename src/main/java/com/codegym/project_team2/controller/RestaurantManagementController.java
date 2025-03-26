@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/restaurant-management")
+@WebServlet(name = "RestaurantManagementController", value = "/restaurant-management")
 public class RestaurantManagementController extends HttpServlet {
 
     private IRestaurantManagementRepository restaurantRepository;
@@ -26,20 +26,36 @@ public class RestaurantManagementController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String searchQuery = request.getParameter("search");
+        int page = 1;
+        int restaurantsPerPage = 5;
+
+        String pageParam = request.getParameter("page");
+        if (pageParam != null && !pageParam.isEmpty()) {
+            page = Integer.parseInt(pageParam);
+        }
 
         try {
             List<Restaurant> restaurants;
             if (searchQuery != null && !searchQuery.trim().isEmpty()) {
-                // Tìm kiếm nhà hàng theo tên hoặc ID
                 restaurants = restaurantRepository.searchRestaurants(searchQuery);
             } else {
-                // Lấy tất cả nhà hàng nếu không có tìm kiếm
                 restaurants = restaurantRepository.getAllRestaurants();
             }
 
-            // Đưa dữ liệu nhà hàng vào request và chuyển tiếp đến JSP
-            request.setAttribute("restaurants", restaurants);
+            int startIndex = (page - 1) * restaurantsPerPage;
+            int endIndex = Math.min(startIndex + restaurantsPerPage, restaurants.size());
+
+            List<Restaurant> paginatedRestaurants = restaurants.subList(startIndex, endIndex);
+
+            int totalPages = (int) Math.ceil((double) restaurants.size() / restaurantsPerPage);
+
+            request.setAttribute("restaurants", paginatedRestaurants);
+            request.setAttribute("currentPage", page);
+            request.setAttribute("totalPages", totalPages);
+            request.setAttribute("searchQuery", searchQuery);
+
             request.getRequestDispatcher("/view/admin/restaurant-management.jsp").forward(request, response);
+
         } catch (SQLException e) {
             e.printStackTrace();
             response.getWriter().write("An error occurred while fetching the restaurant list.");
@@ -67,29 +83,27 @@ public class RestaurantManagementController extends HttpServlet {
         String name = request.getParameter("restaurant_name");
         String address = request.getParameter("restaurant_address");
         String phone = request.getParameter("restaurant_phone");
+        String currentPage = request.getParameter("currentPage");
+        String searchQuery = request.getParameter("search");
 
-        // Kiểm tra nếu trường restaurant_name bị null hoặc trống
         if (name == null || name.trim().isEmpty()) {
             request.setAttribute("message", "Restaurant name cannot be empty.");
             request.getRequestDispatcher("/view/admin/restaurant-management.jsp").forward(request, response);
             return;
         }
 
-        // Kiểm tra nếu trường restaurant_address bị null hoặc trống
         if (address == null || address.trim().isEmpty()) {
             request.setAttribute("message", "Restaurant address cannot be empty.");
             request.getRequestDispatcher("/view/admin/restaurant-management.jsp").forward(request, response);
             return;
         }
 
-        // Kiểm tra nếu trường restaurant_phone bị null hoặc trống
         if (phone == null || phone.trim().isEmpty()) {
             request.setAttribute("message", "Restaurant phone cannot be empty.");
             request.getRequestDispatcher("/view/admin/restaurant-management.jsp").forward(request, response);
             return;
         }
 
-        // Tiến hành cập nhật nhà hàng nếu tất cả trường hợp kiểm tra hợp lệ
         Restaurant restaurant = new Restaurant();
         restaurant.setId(id);
         restaurant.setRestaurantName(name);
@@ -104,36 +118,48 @@ public class RestaurantManagementController extends HttpServlet {
             request.setAttribute("message", "Failed to update restaurant.");
         }
 
-        // Lấy lại danh sách nhà hàng sau khi cập nhật
         List<Restaurant> restaurants = restaurantRepository.getAllRestaurants();
-        request.setAttribute("restaurants", restaurants);
+        int restaurantsPerPage = 5;
+        int startIndex = (Integer.parseInt(currentPage) - 1) * restaurantsPerPage;
+        int endIndex = Math.min(startIndex + restaurantsPerPage, restaurants.size());
 
-        // Chuyển tiếp lại trang restaurant management để hiển thị lại danh sách và thông báo
+        List<Restaurant> paginatedRestaurants = restaurants.subList(startIndex, endIndex);
+        int totalPages = (int) Math.ceil((double) restaurants.size() / restaurantsPerPage);
+
+        request.setAttribute("restaurants", paginatedRestaurants);
+        request.setAttribute("currentPage", currentPage);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("searchQuery", searchQuery);
+
         request.getRequestDispatcher("/view/admin/restaurant-management.jsp").forward(request, response);
     }
 
     private void deleteRestaurant(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("id"));
+        String currentPage = request.getParameter("currentPage");
+        String searchQuery = request.getParameter("search");
 
-        // Gọi phương thức deleteRestaurant trong repository để xóa nhà hàng
         boolean isDeleted = restaurantRepository.deleteRestaurant(id);
 
-        // Thông báo kết quả
         if (isDeleted) {
             request.setAttribute("message", "Restaurant deleted successfully.");
         } else {
             request.setAttribute("message", "Failed to delete restaurant.");
         }
 
-        // Lấy lại danh sách nhà hàng sau khi xóa
         List<Restaurant> restaurants = restaurantRepository.getAllRestaurants();
-        request.setAttribute("restaurants", restaurants);
+        int restaurantsPerPage = 5;
+        int startIndex = (Integer.parseInt(currentPage) - 1) * restaurantsPerPage;
+        int endIndex = Math.min(startIndex + restaurantsPerPage, restaurants.size());
 
-        // Chuyển tiếp lại trang restaurant management để hiển thị lại danh sách và thông báo
+        List<Restaurant> paginatedRestaurants = restaurants.subList(startIndex, endIndex);
+        int totalPages = (int) Math.ceil((double) restaurants.size() / restaurantsPerPage);
+
+        request.setAttribute("restaurants", paginatedRestaurants);
+        request.setAttribute("currentPage", currentPage);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("searchQuery", searchQuery);
+
         request.getRequestDispatcher("/view/admin/restaurant-management.jsp").forward(request, response);
     }
-
 }
-
-
-

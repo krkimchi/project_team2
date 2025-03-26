@@ -11,7 +11,7 @@ public class RestaurantManagementRepository implements IRestaurantManagementRepo
 
     @Override
     public List<Restaurant> getAllRestaurants() throws SQLException {
-        String query = "SELECT * FROM restaurants";
+        String query = "select * from restaurants";
         List<Restaurant> restaurantList = new ArrayList<>();
 
         try (Connection connection = BaseRepository.getConnectDB();
@@ -35,7 +35,7 @@ public class RestaurantManagementRepository implements IRestaurantManagementRepo
 
     @Override
     public boolean updateRestaurant(Restaurant restaurant) throws SQLException {
-        String query = "UPDATE restaurants SET restaurant_name = ?, restaurant_address = ?, restaurant_phone = ? WHERE id = ?";
+        String query = "update restaurants set restaurant_name = ?, restaurant_address = ?, restaurant_phone = ? where id = ?";
         try (Connection connection = BaseRepository.getConnectDB();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, restaurant.getRestaurantName());
@@ -50,7 +50,7 @@ public class RestaurantManagementRepository implements IRestaurantManagementRepo
 
     @Override
     public boolean deleteRestaurant(int restaurantId) throws SQLException {
-        String query = "DELETE FROM restaurants WHERE id = ?";
+        String query = "delete from restaurants where id = ?";
         try (Connection connection = BaseRepository.getConnectDB();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, restaurantId);
@@ -63,8 +63,7 @@ public class RestaurantManagementRepository implements IRestaurantManagementRepo
     public List<Restaurant> searchRestaurants(String query) throws SQLException {
         List<Restaurant> restaurantList = new ArrayList<>();
 
-        // Truy vấn tìm kiếm theo Restaurant Name hoặc Restaurant ID
-        String sql = "SELECT * FROM restaurants WHERE restaurant_name LIKE ? OR id LIKE ?";
+        String sql = "select * from restaurants where restaurant_name like ? or id like ?";
         try (Connection connection = BaseRepository.getConnectDB();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             String searchPattern = "%" + query + "%";
