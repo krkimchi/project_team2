@@ -1,6 +1,10 @@
 package com.codegym.project_team2.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Order {
@@ -18,7 +22,7 @@ public class Order {
 
     public Order(Customer customer, List<CartItem> items) {
         this.customer = customer;
-        this.items = items;
+        this.items = new ArrayList<>(items);;
         this.restaurantId = determineRestaurantId(items); // Lấy restaurantId từ danh sách món
         this.customerNote = "";
         this.status = "pending";
@@ -124,5 +128,13 @@ public class Order {
 
     public void setItems(List<CartItem> items) {
         this.items = items;
+    }
+
+    // chuyển LocalDateTime thành Date
+    public Date getCreatedAtAsDate() {
+        if (createdAt == null) {
+            return null;
+        }
+        return Date.from(createdAt.atZone(ZoneId.of("Asia/Ho_Chi_Minh")).toInstant());
     }
 }

@@ -1,5 +1,6 @@
 package com.codegym.project_team2.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 public class Food {

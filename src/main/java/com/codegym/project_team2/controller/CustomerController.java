@@ -6,6 +6,8 @@ import com.codegym.project_team2.repository.IUserRepository;
 import com.codegym.project_team2.repository.UserRepository;
 import com.codegym.project_team2.service.FoodService;
 import com.codegym.project_team2.service.IFoodService;
+import com.codegym.project_team2.service.IOrderService;
+import com.codegym.project_team2.service.OrderService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +21,7 @@ import java.util.List;
 public class CustomerController extends HttpServlet {
     private IFoodService foodService = new FoodService();
     private IUserRepository userRepository = new UserRepository();
+    private IOrderService orderService = new OrderService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -52,11 +55,27 @@ public class CustomerController extends HttpServlet {
                 removeFromCart(req, resp);
                 break;
 
+            case "order_recent":
+                viewRecentOrder(req, resp);
+                break;
+
             default:
                 showHomePage(req, resp);
                 break;
 
         }
+    }
+
+    private void viewRecentOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // Kiểm tra xem người dùng đã đăng nhập chưa
+        Customer customer = (Customer) req.getSession().getAttribute("customer");
+        if (customer == null) {
+            req.getSession().setAttribute("error", "Vui lòng đăng nhập để xem đơn hàng.");
+            resp.sendRedirect("/login");
+            return;
+        }
+
+        req.getRequestDispatcher("/view/customer/recent_order.jsp").forward(req, resp);
     }
 
     private void updateCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -232,6 +251,8 @@ public class CustomerController extends HttpServlet {
             // Lưu đơn hàng
             boolean success = customer.placeOrder(order);
             if (success) {
+                req.getSession().setAttribute("recentOrder", order);
+
                 customer.getCart().clear();
                 req.getSession().setAttribute("message", "Đặt hàng thành công!");
             } else {

@@ -5,9 +5,9 @@
 <head>
     <title>Giỏ Hàng</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <c:import url="../../view/layout/library.jsp"/>
     <c:import url="../../view/layout/header.jsp"/>
+
     <link rel="stylesheet" type="text/css" href="/resources/css/customer/cart.css">
 </head>
 <body>
