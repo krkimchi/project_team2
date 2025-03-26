@@ -32,6 +32,7 @@ public class LoginController extends HttpServlet {
             session.setAttribute("userType", user.getUserType());
             switch (userType) {
                 case "admin":
+                    response.sendRedirect("view/admin/dashboard.jsp");
                     break;
                 case "owner":
                     response.sendRedirect("/view/owner/owner.jsp");
