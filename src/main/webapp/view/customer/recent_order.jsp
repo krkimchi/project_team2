@@ -63,43 +63,43 @@
     </c:if>
 
     <!-- Hiển thị thông tin đơn hàng -->
-    <c:if test="${not empty sessionScope.recentOrder}">
+    <c:if test="${not empty requestScope.recentOrder}">
         <div class="order-info">
             <label>Mã đơn hàng:</label>
-            <span>${sessionScope.recentOrder.id}</span>
+            <span>${requestScope.recentOrder.id}</span>
         </div>
         <div class="order-info">
             <label>Trạng thái:</label>
-            <span>${sessionScope.recentOrder.status}</span>
+            <span>${requestScope.recentOrder.status}</span>
         </div>
         <div class="order-info">
             <label>Thời gian đặt:</label>
-            <span><fmt:formatDate value="${sessionScope.recentOrder.createdAtAsDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
+            <span><fmt:formatDate value="${requestScope.recentOrder.createdAtAsDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
         </div>
         <div class="order-info">
             <label>Ghi chú:</label>
-            <span>${sessionScope.recentOrder.customerNote != null ? sessionScope.recentOrder.customerNote : 'Không có'}</span>
+            <span>${requestScope.recentOrder.customerNote != null ? requestScope.recentOrder.customerNote : 'Không có'}</span>
         </div>
         <div class="order-info">
             <label>Nhà hàng:</label>
-            <span>Nhà hàng ID: ${sessionScope.recentOrder.restaurantId}</span>
+            <span>Nhà hàng ID: ${requestScope.recentOrder.restaurantId}</span>
         </div>
         <div class="order-info">
             <label>Shipper:</label>
             <span>
                     <c:choose>
-                        <c:when test="${sessionScope.recentOrder.shipperId == null}">
+                        <c:when test="${requestScope.recentOrder.shipperId == null || requestScope.recentOrder.shipperId == 0}">
                             Đang tìm shipper...
                         </c:when>
                         <c:otherwise>
-                            Shipper ID: ${sessionScope.recentOrder.shipperId}
+                            Shipper ID: ${requestScope.recentOrder.shipperId}
                         </c:otherwise>
                     </c:choose>
                 </span>
         </div>
 
         <!-- Hiển thị danh sách món trong đơn hàng (nếu có) -->
-        <c:if test="${not empty sessionScope.recentOrder.items}">
+        <c:if test="${not empty requestScope.recentOrder.items}">
             <div class="order-items">
                 <h5>Danh sách món</h5>
                 <table class="table table-bordered">
@@ -112,7 +112,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="item" items="${sessionScope.recentOrder.getItems()}">
+                    <c:forEach var="item" items="${requestScope.recentOrder.items}">
                         <tr>
                             <td>${item.food.name}</td>
                             <td><fmt:formatNumber value="${item.food.price}" type="currency" currencySymbol="₫"/></td>
@@ -131,7 +131,7 @@
     </c:if>
 
     <!-- Nếu không có đơn hàng -->
-    <c:if test="${empty sessionScope.recentOrder}">
+    <c:if test="${empty requestScope.recentOrder}">
         <div class="alert alert-warning text-center">
             Không có đơn hàng nào vừa đặt! <a href="/customer">Quay lại</a>
         </div>

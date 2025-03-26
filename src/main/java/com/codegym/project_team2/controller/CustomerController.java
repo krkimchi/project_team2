@@ -74,6 +74,22 @@ public class CustomerController extends HttpServlet {
             resp.sendRedirect("/login");
             return;
         }
+        String recentOrderId = (String) req.getSession().getAttribute("recentOrderId");
+        Order recentOrder = null;
+
+        if (recentOrderId != null ) {
+            int orderId = Integer.parseInt(recentOrderId);
+            recentOrder = orderService.getOrderById(orderId);
+            List<CartItem> cartItemList = foodService.getCartItemsByOrderId(orderId);
+            if (recentOrder != null) {
+                // Gán cartItemList vào recentOrder
+                recentOrder.setItems(cartItemList);
+                // Lưu recentOrder vào request scope
+                req.setAttribute("recentOrder", recentOrder);
+                // Không cần lưu cartItemList vào session scope nữa, vì đã gán vào recentOrder
+                // req.getSession().setAttribute("cartItemList", cartItemList);
+            }
+        }
 
         req.getRequestDispatcher("/view/customer/recent_order.jsp").forward(req, resp);
     }
@@ -229,7 +245,7 @@ public class CustomerController extends HttpServlet {
             }
 
             // Tạo đơn hàng
-            Order order = new Order(customer, customer.getCart());
+            Order order = new Order(customer.getId(), customer.getCart());
             order.setCustomerNote(note);
 
             // Kiểm tra xem tất cả món trong giỏ hàng có cùng restaurantId không
@@ -251,8 +267,7 @@ public class CustomerController extends HttpServlet {
             // Lưu đơn hàng
             boolean success = customer.placeOrder(order);
             if (success) {
-                req.getSession().setAttribute("recentOrder", order);
-
+                req.getSession().setAttribute("recentOrderId", String.valueOf(order.getId()));
                 customer.getCart().clear();
                 req.getSession().setAttribute("message", "Đặt hàng thành công!");
             } else {

@@ -1,6 +1,7 @@
 package com.codegym.project_team2.service;
 
 import com.codegym.project_team2.dto.DishDto;
+import com.codegym.project_team2.model.CartItem;
 import com.codegym.project_team2.model.Food;
 import com.codegym.project_team2.repository.FoodRepository;
 import com.codegym.project_team2.repository.IFoodRepository;
@@ -23,5 +24,10 @@ public class FoodService implements IFoodService {
     @Override
     public Food getFoodById(int id) {
         return foodRepository.getFoodById(id);
+    }
+
+    @Override
+    public List<CartItem> getCartItemsByOrderId(int orderId) {
+        return foodRepository.getCartItemsByOrderId(orderId);
     }
 }
