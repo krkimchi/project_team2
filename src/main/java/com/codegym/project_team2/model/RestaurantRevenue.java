@@ -1,12 +1,12 @@
 package com.codegym.project_team2.model;
 
-public class Revenue {
+public class RestaurantRevenue {
     private String restaurantName;
     private int year;
     private int month;
     private double totalRevenue;
 
-    public Revenue(String restaurantName, int year, int month, double totalRevenue) {
+    public RestaurantRevenue(String restaurantName, int year, int month, double totalRevenue) {
         this.restaurantName = restaurantName;
         this.year = year;
         this.month = month;

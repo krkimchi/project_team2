@@ -1,6 +1,7 @@
 package com.codegym.project_team2.repository;
 
-import com.codegym.project_team2.model.Revenue;
+import com.codegym.project_team2.model.RestaurantRevenue;
+import com.codegym.project_team2.model.ShipperRevenue;
 import com.codegym.project_team2.util.BaseRepository;
 
 import java.sql.Connection;
@@ -14,8 +15,8 @@ public class RevenueRepository implements IRevenueRepository {
 
 
     @Override
-    public List<Revenue> getTop20Restaurants() throws SQLException {
-        List<Revenue> revenues = new ArrayList<>();
+    public List<RestaurantRevenue> getTop20Restaurants() throws SQLException {
+        List<RestaurantRevenue> restaurantRevenues = new ArrayList<>();
         String query = "select r.restaurant_name, year(p.created_at) as year, month(p.created_at) as month, sum(p.amount) as total_revenue " +
                 "from payments p " +
                 "join orders o on p.order_id = o.id " +
@@ -31,12 +32,40 @@ public class RevenueRepository implements IRevenueRepository {
                 int month = rs.getInt("month");
                 double totalRevenue = rs.getDouble("total_revenue");
 
-                revenues.add(new Revenue(restaurantName, year, month, totalRevenue));
+                restaurantRevenues.add(new RestaurantRevenue(restaurantName, year, month, totalRevenue));
             }
         } catch (SQLException e) {
             e.printStackTrace();
             throw e;
         }
-        return revenues;
+        return restaurantRevenues;
+    }
+
+    @Override
+    public List<ShipperRevenue> getTop20Shippers() throws SQLException {
+        List<ShipperRevenue> shipperRevenue = new ArrayList<>();
+        String query = "select so.shipper_id, u.username, count(so.order_id) as order_count " +
+                "from shipper_orders so " +
+                "join users u on so.shipper_id = u.id " +
+                "where year(so.pickup_time) = year(current_date) " +
+                "and month(so.pickup_time) = month(current_date) " +
+                "group by so.shipper_id, u.username " +
+                "order by order_count desc " +
+                "limit 20";
+
+        try (Connection conn = BaseRepository.getConnectDB();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                String shipperName = rs.getString("username");
+                int orderCount = rs.getInt("order_count");
+                shipperRevenue.add(new ShipperRevenue(shipperName, orderCount));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+        return shipperRevenue;
     }
 }
