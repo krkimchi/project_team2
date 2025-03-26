@@ -1,5 +1,6 @@
 package com.codegym.project_team2.service;
 
+import com.codegym.project_team2.dto.RestaurantDto;
 import com.codegym.project_team2.model.Restaurant;
 import com.codegym.project_team2.repository.IRestaurantRepository;
 import com.codegym.project_team2.repository.RestaurantRepository;
@@ -10,27 +11,37 @@ public class RestaurantService implements IRestaurantService {
     IRestaurantRepository restaurantRepository = new RestaurantRepository();
 
     @Override
-    public List<Restaurant> showAll() {
+    public List<RestaurantDto> showAll() {
         return restaurantRepository.showAll();
     }
 
     @Override
-    public Restaurant show(String ownerId) {
+    public RestaurantDto show(int ownerId) {
         return restaurantRepository.show(ownerId);
     }
 
     @Override
-    public boolean delete(String ownerId) {
+    public boolean delete(int ownerId) {
         return restaurantRepository.delete(ownerId);
     }
 
     @Override
-    public boolean update(String ownerId, Restaurant restaurant) {
+    public boolean update(int ownerId, Restaurant restaurant) {
         return restaurantRepository.update(ownerId, restaurant);
     }
 
     @Override
     public boolean create(Restaurant restaurant) {
         return restaurantRepository.create(restaurant);
+    }
+
+    @Override
+    public boolean open(int ownerId) {
+        return restaurantRepository.open(ownerId);
+    }
+
+    @Override
+    public boolean close(int ownerId) {
+        return restaurantRepository.close(ownerId);
     }
 }

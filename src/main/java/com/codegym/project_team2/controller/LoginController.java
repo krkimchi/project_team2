@@ -25,16 +25,16 @@ public class LoginController extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         User user = userService.login(username);
-
         if (user != null && user.getPassword().equals(password)) {
             HttpSession session = request.getSession();
             String userType = String.valueOf(user.getUserType());
+            session.setAttribute("user", user);
+            session.setAttribute("userType", user.getUserType());
             switch (userType) {
                 case "admin":
                     break;
                 case "owner":
-                    request.setAttribute("user", user);
-                    request.getRequestDispatcher("/view/owner/owner.jsp").forward(request, response);
+                    response.sendRedirect("/view/owner/owner.jsp");
                     break;
                 case "shipper":
                     break;
@@ -59,8 +59,6 @@ public class LoginController extends HttpServlet {
                     response.sendRedirect("/customer");
                     break;
                 default:
-                    session.setAttribute("user", user);
-                    session.setAttribute("userType", user.getUserType());
                     response.sendRedirect("/index.jsp");
                     break;
             }
