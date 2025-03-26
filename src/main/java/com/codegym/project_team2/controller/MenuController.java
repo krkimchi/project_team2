@@ -7,15 +7,18 @@ import com.codegym.project_team2.service.DishService;
 import com.codegym.project_team2.service.RestaurantService;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
 
 @WebServlet (name = "MenuController", value = "/menus")
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024,  // 1MB
+        maxFileSize = 1024 * 1024 * 10,  // 10MB
+        maxRequestSize = 1024 * 1024 * 50 // 50MB
+)
 public class MenuController extends HttpServlet {
     private RestaurantService restaurantService = new RestaurantService();
     private DishService dishService = new DishService();
@@ -29,6 +32,15 @@ public class MenuController extends HttpServlet {
             case "showMenu":
                 showMenu(req, resp);
                 break;
+        }
+    }
+
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String action = req.getParameter("action");
+        if (action == null) {
+            action = "";
+        }
+        switch (action) {
             case "addDish":
                 addDish(req, resp);
                 break;
@@ -41,9 +53,14 @@ public class MenuController extends HttpServlet {
         int userId = user.getId();
         RestaurantDto restaurant = restaurantService.show(userId);
 
+        Part filePart = req.getPart("dishImg");
+        String fileName = String.valueOf(filePart.getSubmittedFileName());
+        String path = "/resources/images/food/"+ fileName;
+        filePart.write(path);
+
         String dishName = req.getParameter("dishName");
         float dishPrice = Float.parseFloat(req.getParameter("dishPrice"));
-        String dishImg = req.getParameter("dishImg");
+        String dishImg = req.getParameter(fileName);
         String description = req.getParameter("description");
         boolean isAvailable = Boolean.parseBoolean(req.getParameter("isAvailable"));
 

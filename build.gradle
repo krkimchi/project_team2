@@ -29,6 +29,18 @@ dependencies {
     implementation 'com.sun.mail:javax.mail:1.6.2'
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+
+    implementation("commons-fileupload:commons-fileupload:1.5")
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    implementation("commons-io:commons-io:2.18.0")
+    implementation 'javax.servlet:javax.servlet-api:4.0.1'
+
+    implementation 'org.apache.httpcomponents:httpclient:4.5.13'  // HTTP client for making requests
+    testImplementation 'junit:junit:4.13'
+
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.33'
+    implementation 'org.apache.tomcat.embed:tomcat-embed-websocket:9.0.33'
+
 }
 
 test {

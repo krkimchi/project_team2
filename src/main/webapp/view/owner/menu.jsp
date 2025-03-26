@@ -143,16 +143,16 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form action="/menus" method="get">
+                <form action="/menus" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <input type="hidden" name="action" value="addDish">
-                        <input type="hidden" name="dishImh" value="">
+                        <input type="hidden" name="dishImg" value="">
                         <label class="form-label">Dish Name</label>
                         <input type="text" class="form-control" name="dishName">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Description</label>
-                        <textarea class="form-control" rows="3" name="dishDescription"></textarea>
+                        <textarea class="form-control" rows="3" name="description"></textarea>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Price</label>
@@ -162,6 +162,10 @@
                         <input type="checkbox" class="form-check-input" id="availabilityCheck" checked
                                name="isAvailable">
                         <label class="form-check-label" for="availabilityCheck">Available for Order</label>
+                        <div class="mb-3">
+                            <label class="form-label">Dish Image</label>
+                            <input type="file" class="form-control" name="dishImg">
+                        </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                             <button type="submit" class="btn btn-primary">Add Dish</button>

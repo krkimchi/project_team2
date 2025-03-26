@@ -44,8 +44,7 @@ public class DishRepository implements IDishRepository {
             preparedStatement.setString(4, dish.getDishImg());
             preparedStatement.setString(5, dish.getDescription());
             preparedStatement.setBoolean(6, dish.isAvailable());
-            preparedStatement.executeUpdate();
-            int affectedRows = preparedStatement.executeUpdate();
+                int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 1) {
                 return true;
             }
