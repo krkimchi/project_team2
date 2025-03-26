@@ -1,5 +1,7 @@
 package com.codegym.project_team2.model;
 
+import java.io.Serializable;
+
 public class CartItem {
     private Food food;
     private int quantity;

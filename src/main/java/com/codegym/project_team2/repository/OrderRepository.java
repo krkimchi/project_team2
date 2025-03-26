@@ -1,15 +1,25 @@
 package com.codegym.project_team2.repository;
 
 import com.codegym.project_team2.model.CartItem;
+import com.codegym.project_team2.model.Food;
 import com.codegym.project_team2.model.Order;
 import com.codegym.project_team2.util.BaseRepository;
 
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderRepository implements IOrderRepository {
     private final String ADD_ORDER = "insert into orders(customer_id, restaurant_id, customer_note, status, created_at) values(?, ?, ?, ?, ?)";
     private final String ADD_ODER_DETAIL = "insert into order_detail(order_id, dish_id, dish_quantity) values(?, ?, ?)";
+    private final String SELECT_ORDER_WITH_DETAILS =
+            "select od.order_id, od.dish_id, od.dish_quantity, d.dish_name, d.dish_price, d.restaurant_id, " +
+                    "o.shipper_id, o.customer_note, o.status, o.created_at " +
+                    "from orders o " +
+                    "join order_detail od on o.id = od.order_id " +
+                    "join dishes d on od.dish_id = d.id " +
+                    "where o.id = ?";
 
     @Override
     public boolean save(Order order) {
