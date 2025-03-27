@@ -19,4 +19,9 @@ public class DishService implements IDishService {
     public boolean add(Dish dish) {
         return dishRepository.add(dish);
     }
+
+    @Override
+    public boolean delete(int id) {
+        return dishRepository.delete(id);
+    }
 }

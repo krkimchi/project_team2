@@ -8,4 +8,6 @@ public interface IDishService {
     List<Dish> showByRestaurantId(int restaurantId);
 
     boolean add(Dish dish);
+
+    boolean delete(int id);
 }

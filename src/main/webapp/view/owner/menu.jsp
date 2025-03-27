@@ -109,22 +109,31 @@
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-auto">
-                                <img src="/resources/images/food/${dish.getDishImg()}" class="menu-item-img"
+                                <img src="http://localhost:8080/resources/images/food/${dish.getDishImg()}"
+                                     class="menu-item-img"
                                      alt="Menu Item">
                             </div>
                             <div class="col">
                                 <h5 class="menu-item-title">${dish.getDishName()}</h5>
                                 <p class="menu-item-description">${dish.getDescription()}</p>
                                 <p class="menu-item-price">${dish.getDishPrice()} vnd</p>
-                                <span class="badge bg-success">Available</span>
+                                <c:choose>
+                                    <c:when test="${dish.isAvailable()}">
+                                        <span class="badge bg-success">Available</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="badge bg-danger">Out Of Order</span>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                             <div class="col-auto">
                                 <button class="btn btn-sm btn-info me-2" data-bs-toggle="modal"
                                         data-bs-target="#dishDetailModal">
-                                    <i class="bi bi-info-circle"></i>
+                                    <i class="bi bi-info-circle">Detail</i>
                                 </button>
-                                <button class="btn btn-sm btn-danger">
-                                    <i class="bi bi-trash"></i>
+                                <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                        data-bs-target="#deleteConfirmModal" onclick="deleteInfo(`${dish.getId()}`)">
+                                    <i class="bi bi-trash">Delete</i>
                                 </button>
                             </div>
                         </div>
@@ -146,7 +155,6 @@
                 <form action="/menus" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <input type="hidden" name="action" value="addDish">
-                        <input type="hidden" name="dishImg" value="">
                         <label class="form-label">Dish Name</label>
                         <input type="text" class="form-control" name="dishName">
                     </div>
@@ -187,7 +195,7 @@
             </div>
             <div class="modal-body">
                 <div class="text-center mb-3">
-                    <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141" class="dish-detail-img"
+                    <img src="" class="dish-detail-img"
                          alt="Dish">
                 </div>
                 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -213,5 +221,38 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this dish? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <form action="/menus" method="get">
+                    <input type="hidden" name="id" id="deleteId">
+                    <input type="hidden" name="action" value="deleteDish">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function deleteInfo(deleteId) {
+        document.getElementById("deleteId").value = deleteId;
+    }
+
+    function updateInfo () {
+
+    }
+</script>
 </body>
 </html>

@@ -9,4 +9,6 @@ public interface IDishRepository {
     List<Dish> showByRestaurantId(int restaurantId);
 
         boolean add(Dish dish);
+
+        boolean delete(int id);
 }

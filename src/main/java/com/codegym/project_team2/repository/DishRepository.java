@@ -14,6 +14,7 @@ import java.util.List;
 public class DishRepository implements IDishRepository {
     final String FIND_BY_RESTAURANT_ID = "select * from dishes where restaurant_id = ?";
     final String INSERT_INTO = "insert into dishes(restaurant_id, dish_name, dish_price, dish_img, description, is_available) values(?, ?, ?, ?, ?, ?)";
+    final String DELETE = "delete from dishes where id = ?";
 
     @Override
     public List<Dish> showByRestaurantId(int restaurantId) {
@@ -44,7 +45,7 @@ public class DishRepository implements IDishRepository {
             preparedStatement.setString(4, dish.getDishImg());
             preparedStatement.setString(5, dish.getDescription());
             preparedStatement.setBoolean(6, dish.isAvailable());
-                int affectedRows = preparedStatement.executeUpdate();
+            int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 1) {
                 return true;
             }
@@ -56,6 +57,23 @@ public class DishRepository implements IDishRepository {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean delete(int id) {
+        Connection connection = BaseRepository.getConnectDB();
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(DELETE);
+            preparedStatement.setInt(1, id);
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 1) {
+                return true;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return false;
     }

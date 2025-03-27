@@ -10,10 +10,11 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet (name = "MenuController", value = "/menus")
+@WebServlet(name = "MenuController", value = "/menus")
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024,  // 1MB
         maxFileSize = 1024 * 1024 * 10,  // 10MB
@@ -22,6 +23,7 @@ import java.util.List;
 public class MenuController extends HttpServlet {
     private RestaurantService restaurantService = new RestaurantService();
     private DishService dishService = new DishService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
@@ -31,6 +33,9 @@ public class MenuController extends HttpServlet {
         switch (action) {
             case "showMenu":
                 showMenu(req, resp);
+                break;
+            case "deleteDish":
+                deleteDish(req, resp);
                 break;
         }
     }
@@ -47,6 +52,13 @@ public class MenuController extends HttpServlet {
         }
     }
 
+    private void deleteDish(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        dishService.delete(id);
+
+        showMenu(req, resp);
+    }
+
     private void addDish(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
@@ -54,15 +66,28 @@ public class MenuController extends HttpServlet {
         RestaurantDto restaurant = restaurantService.show(userId);
 
         Part filePart = req.getPart("dishImg");
-        String fileName = String.valueOf(filePart.getSubmittedFileName());
-        String path = "/resources/images/food/"+ fileName;
-        filePart.write(path);
+        String fileName = System.currentTimeMillis() + "_" + filePart.getSubmittedFileName();
+
+        String uploadDir = getServletContext().getRealPath("/resources/images/food/");
+        File dir = new File(uploadDir);
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+
+        filePart.write(uploadDir + fileName);
 
         String dishName = req.getParameter("dishName");
         float dishPrice = Float.parseFloat(req.getParameter("dishPrice"));
-        String dishImg = req.getParameter(fileName);
+        String dishImg = fileName;
         String description = req.getParameter("description");
-        boolean isAvailable = Boolean.parseBoolean(req.getParameter("isAvailable"));
+
+        String isAvailableValue = req.getParameter("isAvailable");
+        boolean isAvailable;
+        if (isAvailableValue.equals("on")) {
+            isAvailable = true;
+        } else {
+            isAvailable = false;
+        }
 
         Dish dish = new Dish(restaurant.getId(), dishName, dishPrice, dishImg, description, isAvailable);
         dishService.add(dish);
