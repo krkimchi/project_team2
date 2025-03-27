@@ -152,7 +152,7 @@
             height: 20px;
             background-color: var(--primary-color);
             margin-right: 10px;
-            border-radius: 4px; /* Thêm góc bo tròn cho các ô vuông */
+            border-radius: 4px;
         }
 
     </style>
@@ -166,6 +166,7 @@
             <li><a href="${pageContext.request.contextPath}/restaurant-management"><i class="bx bx-store"></i> Restaurant Management</a></li>
             <li><a href="${pageContext.request.contextPath}/revenue"><i class="bx bx-dollar-circle"></i> Revenue</a></li>
             <li><a href="${pageContext.request.contextPath}/restaurant-rating"><i class="bx bx-star"></i> Restaurant Ratings</a></li>
+            <li><a href="${pageContext.request.contextPath}/shipper-rating"><i class="bx bx-star"></i> Shipper Ratings</a></li>
         </ul>
     </nav>
 </div>

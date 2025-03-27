@@ -17,8 +17,9 @@ public class RestaurantRatingRepository implements IRestaurantRatingRepository {
         List<RestaurantRating> ratings = new ArrayList<>();
         try (Connection conn = BaseRepository.getConnectDB()) {
             PreparedStatement ps = conn.prepareStatement(
-                    "select r.restaurant_name, avg(rev.rating) as averageRating, count(*) as reviewCount " +
-                            "from reviews rev join orders o on rev.order_id = o.id " +
+                    "select r.restaurant_name, avg(rev.rating) as averageRating, group_concat(rev.content separator ', ') as content " +
+                            "from reviews rev " +
+                            "join orders o on rev.order_id = o.id " +
                             "join restaurants r on o.restaurant_id = r.id " +
                             "where rev.target_type = 'restaurant' " +
                             "group by r.restaurant_name " +
@@ -28,7 +29,7 @@ public class RestaurantRatingRepository implements IRestaurantRatingRepository {
                 ratings.add(new RestaurantRating(
                         rs.getString("restaurant_name"),
                         rs.getDouble("averageRating"),
-                        rs.getInt("reviewCount")
+                        rs.getString("content")
                 ));
             }
         }

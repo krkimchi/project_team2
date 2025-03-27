@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Owner
-  Date: 3/24/2025
-  Time: 9:42 AM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -77,20 +70,16 @@
         <tr>
             <th><i class="bx bx-food-menu icon"></i>Restaurant Name</th>
             <th><i class="bx bx-star icon"></i>Average Rating</th>
-            <th><i class="bx bx-comment-dots icon"></i>Review Count</th>
+            <th><i class="bx bx-comment-dots icon"></i>Content</th>
         </tr>
         <c:forEach items="${ratings}" var="rating">
             <tr>
                 <td>${rating.restaurantName}</td>
                 <td>${rating.averageRating}</td>
-                <td>${rating.reviewCount}</td>
+                <td>${rating.content}</td>
             </tr>
         </c:forEach>
     </table>
 </div>
 </body>
 </html>
-
-
-
-
