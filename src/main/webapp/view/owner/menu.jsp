@@ -146,7 +146,6 @@
                 <form action="/menus" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <input type="hidden" name="action" value="addDish">
-                        <input type="hidden" name="dishImg" value="">
                         <label class="form-label">Dish Name</label>
                         <input type="text" class="form-control" name="dishName">
                     </div>
