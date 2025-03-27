@@ -3,12 +3,12 @@ package com.codegym.project_team2.model;
 public class RestaurantRating {
     private String restaurantName;
     private double averageRating;
-    private int reviewCount;
+    private String content;
 
-    public RestaurantRating(String restaurantName, double averageRating, int reviewCount) {
+    public RestaurantRating(String restaurantName, double averageRating, String content) {
         this.restaurantName = restaurantName;
         this.averageRating = averageRating;
-        this.reviewCount = reviewCount;
+        this.content = content;
     }
 
     public String getRestaurantName() {
@@ -27,11 +27,11 @@ public class RestaurantRating {
         this.averageRating = averageRating;
     }
 
-    public int getReviewCount() {
-        return reviewCount;
+    public String getContent() {
+        return content;
     }
 
-    public void setReviewCount(int reviewCount) {
-        this.reviewCount = reviewCount;
+    public void setContent(String content) {
+        this.content = content;
     }
 }
