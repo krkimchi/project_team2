@@ -174,7 +174,7 @@
         </div>
     </div>
 
-    <form action="login" method="post" class="login-form" autocomplete="off">
+    <form action="/login" method="post" class="login-form" autocomplete="off">
         <div class="input-box">
             <input type="text" class="input-field" name="username" required>
             <label class="label">Username</label>
