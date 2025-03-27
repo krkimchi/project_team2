@@ -37,6 +37,7 @@ public class LoginController extends HttpServlet {
                     response.sendRedirect("/view/owner/owner.jsp");
                     break;
                 case "shipper":
+                    response.sendRedirect("/shipper");
                     break;
                 case "customer":
                     Customer customer = new Customer(

@@ -11,7 +11,7 @@
 <head>
     <title>Title</title>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-<%--    <link rel="stylesheet" href="overview.css">--%>
+    <%--    <link rel="stylesheet" href="overview.css">--%>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
         :root{
@@ -651,13 +651,13 @@
             </div>
         </div>
         <div class="sidebar">
-            <a href="project/index.html">
+            <a href="/shipper">
         <span class="material-symbols-outlined">
           dashboard
         </span>
                 <h3>Overview</h3>
             </a>
-            <a href="orders/orders.html">
+            <a href="/shipper?action=listorder&id=${sessionScope.user.getUsername()}">
         <span class="material-symbols-outlined">
           list_alt
         </span>
@@ -773,7 +773,7 @@
 
             <div class="profile">
                 <div class="info">
-                    <p>Hey, <b>Semmar</b></p>
+                    <p>Hey, <b>${sessionScope.user.getUsername()}</b></p>
                     <small class="text-muted">Shipper</small>
                 </div>
                 <div class="profile-photo">
@@ -787,7 +787,7 @@
         <div class="user-profile">
             <div class="logo">
                 <img src="elements/default.jpg">
-                <h2>Semmar</h2>
+                <h2>${sessionScope.user.getUsername()}</h2>
                 <p>Fulltime shipper</p>
             </div>
         </div>
