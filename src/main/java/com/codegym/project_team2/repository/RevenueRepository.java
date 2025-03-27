@@ -48,10 +48,12 @@ public class RevenueRepository implements IRevenueRepository {
                 "from shipper_orders so " +
                 "join users u on so.shipper_id = u.id " +
                 "where year(so.pickup_time) = year(current_date) " +
-                "and month(so.pickup_time) = month(current_date) " +
+                "and month(so.pickup_time) between 1 and 6 " +
+                "and so.status = 'delivered' " +
                 "group by so.shipper_id, u.username " +
                 "order by order_count desc " +
                 "limit 20";
+
 
         try (Connection conn = BaseRepository.getConnectDB();
              PreparedStatement stmt = conn.prepareStatement(query);
