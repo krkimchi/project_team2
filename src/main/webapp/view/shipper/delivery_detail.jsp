@@ -655,13 +655,6 @@
         </span>
                 <h3>Overview</h3>
             </a>
-            <a href="orders/orders.html">
-        <span class="material-symbols-outlined">
-          list_alt
-        </span>
-                <h3>All orders</h3>
-                <span class="message-count">69</span>
-            </a>
             <a href="#">
         <span class="material-symbols-outlined">
           receipt_long
@@ -680,13 +673,13 @@
         </span>
                 <h3>Settings</h3>
             </a>
-            <a href="#">
+            <a href="/login">
         <span class="material-symbols-outlined">
           add
         </span>
                 <h3>New logins</h3>
             </a>
-            <a href="#">
+            <a href="/login">
         <span class="material-symbols-outlined">
           logout
         </span>
@@ -708,8 +701,8 @@
             <div class="sales">
                 <div class="status">
                     <div class="info">
-                        <h3>Status</h3>
-                        <h1>${deliveryItem.getDeliveryStatus()}</h1>
+                        <h3>Total price</h3>
+                        <h1>${deliveryItem.getDeliveryPrice()}</h1>
 
                     </div>
                 </div>
@@ -718,7 +711,7 @@
                 <div class="status">
                     <div class="info">
                         <h3>Total price</h3>
-                        <h1>${deliveryItem.getDeliveryPrice()}</h1>
+                        <h1>${deliveryItem.getDeliveryStatus()}</h1>
                     </div>
                 </div>
             </div>

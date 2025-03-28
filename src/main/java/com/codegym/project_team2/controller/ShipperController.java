@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "ShipperController", value = "/shipper")
@@ -59,7 +60,13 @@ public class ShipperController extends HttpServlet {
         int userId = user.getId();
         DeliveryService deliveryService = new DeliveryService();
         List<DeliveryItem> deliveryItems = deliveryService.getDeliveryItems(userId);
-        request.setAttribute("deliveryItems", deliveryItems);
+        List<DeliveryItem> currentItems = new ArrayList<>();
+        for (DeliveryItem deliveryItem : deliveryItems) {
+            if (deliveryItem.getDeliveryStatus()!= "completed"&& deliveryItem.getDeliveryStatus()!= "cancelled") {
+                currentItems.add(deliveryItem);
+            }
+        }
+        request.setAttribute("deliveryItems", currentItems);
         request.getRequestDispatcher("/view/shipper/overview/overview.jsp").forward(request,response);
 
     }

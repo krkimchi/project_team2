@@ -657,13 +657,6 @@
         </span>
                 <h3>Overview</h3>
             </a>
-            <a href="/shipper?action=listorder&id=${sessionScope.user.getUsername()}">
-        <span class="material-symbols-outlined">
-          list_alt
-        </span>
-                <h3>All orders</h3>
-                <span class="message-count">69</span>
-            </a>
             <a href="#">
         <span class="material-symbols-outlined">
           receipt_long
@@ -688,7 +681,7 @@
         </span>
                 <h3>New logins</h3>
             </a>
-            <a href="#">
+            <a href="/login">
         <span class="material-symbols-outlined">
           logout
         </span>
@@ -751,7 +744,6 @@
                     </a>
                 </c:forEach>
             </table>
-            <a href="orders/orders.html">Show All</a>
         </div>
     </main>
     <!--  Right section-->
@@ -773,7 +765,7 @@
 
             <div class="profile">
                 <div class="info">
-                    <p>Hey, <b>${sessionScope.user.getUsername()}</b></p>
+                    <p>Hey, <a href="shipper?action=profile"><b>${sessionScope.user.getUsername()}</b></a></p>
                     <small class="text-muted">Shipper</small>
                 </div>
                 <div class="profile-photo">
