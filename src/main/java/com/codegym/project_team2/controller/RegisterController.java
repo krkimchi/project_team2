@@ -4,7 +4,7 @@ import com.codegym.project_team2.model.User;
 import com.codegym.project_team2.repository.UserRepository;
 import com.codegym.project_team2.service.IUserService;
 import com.codegym.project_team2.service.UserService;
-//import com.codegym.project_team2.util.EmailService;
+import com.codegym.project_team2.util.EmailService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,7 +37,7 @@ public class RegisterController extends HttpServlet {
         request.getSession().setAttribute("otp", otp);
         request.setAttribute("otp", otp);
 
-//        EmailService.sendEmail(email, otp);
+        EmailService.sendEmail(email, otp);
 
         boolean isRegistered = userService.register(user);
 

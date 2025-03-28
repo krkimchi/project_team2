@@ -4,16 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cd1174e4-0551-425a-b6f0-660bc4013f0f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/view/shipper/orders_history.jsp" afterDir="false" />
+    <list default="true" id="2bbf7655-7597-41f5-8fc4-4d6df42c6386" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/controller/ShipperController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/controller/ShipperController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/repository/DeliveryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/repository/DeliveryRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/repository/IDeliveryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/repository/IDeliveryRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/service/DeliveryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/service/DeliveryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/service/IDeliveryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/service/IDeliveryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/view/shipper/delivery_detail.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view/shipper/delivery_detail.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/view/shipper/overview/overview.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view/shipper/overview/overview.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/controller/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/controller/RegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/util/BaseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codegym/project_team2/util/BaseRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/view/user/register.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view/user/register.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,12 +61,12 @@
     &quot;assignee&quot;: &quot;nvrmq&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/krkimchi/project_team2.git&quot;,
-    &quot;accountId&quot;: &quot;bf1bfb9b-4a72-4d0a-b72b-5a456851c2ca&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/krkimchi/project_team2.git",
+    "accountId": "1feb26fb-18bd-4c39-81a7-5dbbc2bfb8e9"
   }
-}</component>
+}]]></component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
     <option name="FILTER_WARNINGS" value="false" />
@@ -92,7 +89,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "Tomcat Server.Tomcat 9.0.100.executor": "Run",
-    "git-widget-placeholder": "feature/shipper",
+    "git-widget-placeholder": "feaute/logic__register",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -193,15 +190,15 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.117" />
-        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.117" />
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
       </set>
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="cd1174e4-0551-425a-b6f0-660bc4013f0f" name="Changes" comment="" />
+      <changelist id="2bbf7655-7597-41f5-8fc4-4d6df42c6386" name="Changes" comment="" />
       <created>1742921070784</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -209,6 +206,7 @@
       <workItem from="1742921072428" duration="11141000" />
       <workItem from="1743057899134" duration="2855000" />
       <workItem from="1743127371543" duration="504000" />
+      <workItem from="1743161447136" duration="1038000" />
     </task>
     <servers />
   </component>
