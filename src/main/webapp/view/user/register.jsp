@@ -293,7 +293,19 @@
             const otpInput = document.getElementById("otpInput").value;
             if (otpInput === otp) {
                 alert("OTP verified successfully!");
-                window.location.href = "/view/user/success.jsp";
+                const userType = "<%= session.getAttribute("userType") %>";
+
+                if (userType === "admin") {
+                    window.location.href = "/view/admin/dashboard.jsp";
+                } else if (userType === "owner") {
+                    window.location.href = "/view/owner/owner.jsp";
+                } else if (userType === "shipper") {
+                    window.location.href = "/shipper";
+                } else if (userType === "customer") {
+                    window.location.href = "/customer";
+                } else {
+                    window.location.href = "/index.jsp";
+                }
             } else {
                 document.getElementById("otpErrorMessage").style.display = "block";
             }
@@ -303,6 +315,7 @@
             document.getElementById("otpPopup").style.display = "none";
         });
     });
+
 </script>
 </body>
 </html>
