@@ -657,7 +657,7 @@
         </span>
                 <h3>Overview</h3>
             </a>
-            <a href="#">
+            <a href="/shipper?action=history">
         <span class="material-symbols-outlined">
           receipt_long
         </span>
@@ -704,7 +704,7 @@
                 <div class="status">
                     <div class="info">
                         <h3>New orders</h3>
-                        <h1>69</h1>
+                        <h1>${currentOrders}</h1>
 
                     </div>
                 </div>
@@ -713,7 +713,7 @@
                 <div class="status">
                     <div class="info">
                         <h3>Orders completed</h3>
-                        <h1>420</h1>
+                        <h1>${ordersHistory}</h1>
                     </div>
                 </div>
             </div>
@@ -767,6 +767,7 @@
                 <div class="info">
                     <p>Hey, <a href="shipper?action=profile"><b>${sessionScope.user.getUsername()}</b></a></p>
                     <small class="text-muted">Shipper</small>
+                    <small class="text-muted">${sessionScope.user.getEmail()}</small>
                 </div>
                 <div class="profile-photo">
                     <img src="elements/default.jpg" alt="">
@@ -781,62 +782,8 @@
                 <img src="elements/default.jpg">
                 <h2>${sessionScope.user.getUsername()}</h2>
                 <p>Fulltime shipper</p>
-            </div>
-        </div>
-
-        <div class="reminders">
-            <div class="header">
-                <h2>Your orders</h2>
-                <span class="material-symbols-outlined">
-          notifications
-        </span>
-            </div>
-
-            <div class="notification">
-                <div class="icon">
-          <span class="material-symbols-outlined">
-            list_alt
-          </span>
-                </div>
-                <div class="content">
-                    <div class="info">
-                        <h3>Name</h3>
-                        <small class="text_muted">
-                            Destination
-                        </small>
-                    </div>
-                    <span class="material-symbols-outlined">
-            more_vert
-          </span>
-                </div>
-            </div>
-
-            <div class="notification deactive">
-                <div class="icon">
-          <span class="material-symbols-outlined">
-            list_alt
-          </span>
-                </div>
-                <div class="content">
-                    <div class="info">
-                        <h3>Name</h3>
-                        <small class="text_muted">
-                            Destination
-                        </small>
-                    </div>
-                    <span class="material-symbols-outlined">
-            more_vert
-          </span>
-                </div>
-            </div>
-
-            <div class="notification add-reminder">
-                <div>
-          <span class="material-symbols-outlined">
-            read_more
-          </span>
-                    <h3>More order</h3>
-                </div>
+                <p>${sessionScope.user.getFullName()}</p>
+                <p>${sessionScope.user.getPhone()}</p>
             </div>
         </div>
     </div>

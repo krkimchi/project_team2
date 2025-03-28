@@ -10,4 +10,5 @@ public interface IDeliveryService {
     DeliveryItem getDeliveryItemById(int id);
     List<DishOption> getDishesWithOption(int id);
     void changeDeliverystatus(int id, String status);
+    int showNumbersOfOrdersHistory(int id);
 }

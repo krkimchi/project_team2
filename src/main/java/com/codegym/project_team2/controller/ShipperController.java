@@ -32,18 +32,45 @@ public class ShipperController extends HttpServlet {
             case "profile":
                 showProfile(request, response);
                 break;
-            case "confirm":
-                confirmOrder(request,response);
+            case "deliver":
+                updateOrder(request,response);
                 break;
+            case "finish":
+                updateOrder(request,response);
+                break;
+            case "confirm":
+                updateOrder(request,response);
+                break;
+            case "history":
+                showHistory(request,response);
             default:
                 showOverview(request,response);
         }
     }
 
-    private void confirmOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
+    private void showHistory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        int userId = user.getId();
         DeliveryService deliveryService = new DeliveryService();
-        deliveryService.changeDeliverystatus(id, "cancelled");
+        List<DeliveryItem> deliveryItems = deliveryService.getDeliveryItems(userId);
+        int ordersHistory = deliveryService.showNumbersOfOrdersHistory(userId);
+        request.setAttribute("ordersHistory", ordersHistory);
+        request.setAttribute("deliveryItems", deliveryItems);
+        request.getRequestDispatcher("/view/shipper/orders_history.jsp").forward(request,response);
+    }
+
+    private void updateOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String action = request.getParameter("action");
+        DeliveryService deliveryService = new DeliveryService();
+        if (action.equals("confirm")) {
+            deliveryService.changeDeliverystatus(id, "confirmed");
+        } else if (action.equals("deliver")) {
+            deliveryService.changeDeliverystatus(id, "delivering");
+        } else if (action.equals("finish")) {
+            deliveryService.changeDeliverystatus(id, "completed");
+        }
         DeliveryItem deliveryItem = deliveryService.getDeliveryItemById(id);
         List<DishOption> dishOption = deliveryService.getDishesWithOption(id);
         request.setAttribute("deliveryItem", deliveryItem);
@@ -84,12 +111,15 @@ public class ShipperController extends HttpServlet {
         List<DeliveryItem> deliveryItems = deliveryService.getDeliveryItems(userId);
         List<DeliveryItem> currentItems = new ArrayList<>();
         for (DeliveryItem deliveryItem : deliveryItems) {
-            if (deliveryItem.getDeliveryStatus()!= "delivered"&& deliveryItem.getDeliveryStatus()!= "cancelled") {
+            if (!deliveryItem.getDeliveryStatus().equals("completed")&& !deliveryItem.getDeliveryStatus().equals("cancelled")) {
                 currentItems.add(deliveryItem);
             }
         }
+        int ordersHistory = deliveryService.showNumbersOfOrdersHistory(userId);
+        int currentOrders = currentItems.size();
         request.setAttribute("deliveryItems", currentItems);
+        request.setAttribute("ordersHistory", ordersHistory);
+        request.setAttribute("currentOrders", currentOrders);
         request.getRequestDispatcher("/view/shipper/overview/overview.jsp").forward(request,response);
-
     }
 }

@@ -712,7 +712,18 @@
                     <div class="info">
                         <h3>${deliveryItem.getDeliveryStatus()}</h3>
                         <c:choose>
-                            <c:if test="${deliveryItem.getOrderId()=="}"
+                            <c:when test="${deliveryItem.getDeliveryStatus().equals('confirmed')}">
+                                <h1><a href="/shipper?action=deliver&id=${deliveryItem.getOrderId()}">Deliver</a></h1>
+                            </c:when>
+                            <c:when test="${deliveryItem.getDeliveryStatus().equals('pending')}">
+                                <h1><a href="/shipper?action=confirm&id=${deliveryItem.getOrderId()}">Confirm</a></h1>
+                            </c:when>
+                            <c:when test="${deliveryItem.getDeliveryStatus().equals('delivering')}">
+                                <h1><a href="/shipper?action=finish&id=${deliveryItem.getOrderId()}">Finish</a></h1>
+                            </c:when>
+                            <c:otherwise>
+                                <h1><a href="/shipper?action=overview">Return home</a></h1>
+                            </c:otherwise>
                         </c:choose>
                     </div>
                 </div>
@@ -760,6 +771,8 @@
                 <div class="info">
                     <p>Hey, <b>${sessionScope.user.getUsername()}</b></p>
                     <small class="text-muted">Shipper</small>
+                    <small class="text-muted">Shipper</small>
+                    <small class="text-muted">${sessionScope.user.getEmail()}</small>
                 </div>
                 <div class="profile-photo">
                     <img src="elements/default.jpg" alt="">
@@ -774,6 +787,8 @@
                 <img src="elements/default.jpg">
                 <h2>${sessionScope.user.getUsername()}</h2>
                 <p>Fulltime shipper</p>
+                <p>${sessionScope.user.getFullName()}</p>
+                <p>${sessionScope.user.getPhone()}</p>
             </div>
         </div>
     </div>

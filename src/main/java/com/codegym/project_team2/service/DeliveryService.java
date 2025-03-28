@@ -29,4 +29,9 @@ public class DeliveryService implements IDeliveryService {
         deliveryRepository.changeDeliveryStatus(id, status);
     }
 
+    @Override
+    public int showNumbersOfOrdersHistory(int id) {
+        return deliveryRepository.showNumbersOfOrdersHistory(id);
+    }
+
 }

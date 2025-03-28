@@ -26,7 +26,7 @@ public class DeliveryRepository implements IDeliveryRepository {
                 String dishesWithQuantity = resultSet.getString("DishesWithQuantity");
                 Timestamp pickkupTime = resultSet.getTimestamp("PickupTime");
                 Timestamp deliverdTime = resultSet.getTimestamp("DeliveredTime");
-                String deliveryStatus = resultSet.getString("DeliveryStatus");
+                String deliveryStatus = resultSet.getString("OrderStatus");
                 double deliveryPrice = resultSet.getDouble("TotalPrice");
                 DeliveryItem deliveryItem = new DeliveryItem(orderId, restaurantName, customerName, dishesWithQuantity, pickkupTime, deliverdTime, deliveryStatus, deliveryPrice);
                 deliveryItems.add(deliveryItem);
@@ -53,7 +53,7 @@ public class DeliveryRepository implements IDeliveryRepository {
                 String dishesWithQuantity = resultSet.getString("DishesWithQuantity");
                 Timestamp pickkupTime = resultSet.getTimestamp("PickupTime");
                 Timestamp deliverdTime = resultSet.getTimestamp("DeliveredTime");
-                String deliveryStatus = resultSet.getString("DeliveryStatus");
+                String deliveryStatus = resultSet.getString("OrderStatus");
                 double deliveryPrice = resultSet.getDouble("TotalPrice");
                 DeliveryItem deliveryItem = new DeliveryItem(orderId, restaurantName, customerName, dishesWithQuantity, pickkupTime, deliverdTime, deliveryStatus, deliveryPrice);
                 return deliveryItem;
@@ -88,7 +88,7 @@ public class DeliveryRepository implements IDeliveryRepository {
 
     @Override
     public void changeDeliveryStatus(int id, String status) {
-        String query = "UPDATE `food_ordering_system`.`shipper_orders` SET `status` = ? WHERE (`id` = ?);";
+        String query = "UPDATE `food_ordering_system`.`orders` SET `status` = ? WHERE (`id` = ?);";
         Connection connection = BaseRepository.getConnectDB();
         try {
             PreparedStatement statement = connection.prepareStatement(query);
@@ -98,5 +98,24 @@ public class DeliveryRepository implements IDeliveryRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public int showNumbersOfOrdersHistory(int id) {
+        String query = "call CountShipperOrders(?)";
+        Connection connection = BaseRepository.getConnectDB();
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, id);
+            statement.execute();
+            ResultSet resultSet = statement.getResultSet();
+            while (resultSet.next()) {
+                int numberofOrders = resultSet.getInt("NumberOfOrders");
+                return numberofOrders;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
     }
 }
