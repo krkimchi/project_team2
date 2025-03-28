@@ -29,9 +29,31 @@ public class ShipperController extends HttpServlet {
             case "listorder":
                 showListOrders(request,response);
                 break;
+            case "profile":
+                showProfile(request, response);
+                break;
+            case "confirm":
+                confirmOrder(request,response);
+                break;
             default:
                 showOverview(request,response);
         }
+    }
+
+    private void confirmOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        DeliveryService deliveryService = new DeliveryService();
+        deliveryService.changeDeliverystatus(id, "cancelled");
+        DeliveryItem deliveryItem = deliveryService.getDeliveryItemById(id);
+        List<DishOption> dishOption = deliveryService.getDishesWithOption(id);
+        request.setAttribute("deliveryItem", deliveryItem);
+        request.setAttribute("dishOption", dishOption);
+        request.getRequestDispatcher("/view/shipper/delivery_detail.jsp").forward(request,response);
+
+    }
+
+    private void showProfile(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.sendRedirect("/view/shipper/account_detail.jsp");
     }
 
     private void showListOrders(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -62,7 +84,7 @@ public class ShipperController extends HttpServlet {
         List<DeliveryItem> deliveryItems = deliveryService.getDeliveryItems(userId);
         List<DeliveryItem> currentItems = new ArrayList<>();
         for (DeliveryItem deliveryItem : deliveryItems) {
-            if (deliveryItem.getDeliveryStatus()!= "completed"&& deliveryItem.getDeliveryStatus()!= "cancelled") {
+            if (deliveryItem.getDeliveryStatus()!= "delivered"&& deliveryItem.getDeliveryStatus()!= "cancelled") {
                 currentItems.add(deliveryItem);
             }
         }

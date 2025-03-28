@@ -24,4 +24,9 @@ public class DeliveryService implements IDeliveryService {
         return deliveryRepository.getDishesWithOption(id);
     }
 
+    @Override
+    public void changeDeliverystatus(int id, String status) {
+        deliveryRepository.changeDeliveryStatus(id, status);
+    }
+
 }

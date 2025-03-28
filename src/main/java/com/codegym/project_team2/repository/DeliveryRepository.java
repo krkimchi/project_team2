@@ -85,4 +85,18 @@ public class DeliveryRepository implements IDeliveryRepository {
         }
         return dishesOptions;
     }
+
+    @Override
+    public void changeDeliveryStatus(int id, String status) {
+        String query = "UPDATE `food_ordering_system`.`shipper_orders` SET `status` = ? WHERE (`id` = ?);";
+        Connection connection = BaseRepository.getConnectDB();
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, status);
+            statement.setInt(2, id);
+            statement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -710,8 +710,10 @@
             <div class="sales">
                 <div class="status">
                     <div class="info">
-                        <h3>Total price</h3>
-                        <h1>${deliveryItem.getDeliveryStatus()}</h1>
+                        <h3>${deliveryItem.getDeliveryStatus()}</h3>
+                        <c:choose>
+                            <c:if test="${deliveryItem.getOrderId()=="}"
+                        </c:choose>
                     </div>
                 </div>
             </div>
@@ -772,62 +774,6 @@
                 <img src="elements/default.jpg">
                 <h2>${sessionScope.user.getUsername()}</h2>
                 <p>Fulltime shipper</p>
-            </div>
-        </div>
-
-        <div class="reminders">
-            <div class="header">
-                <h2>Your orders</h2>
-                <span class="material-symbols-outlined">
-          notifications
-        </span>
-            </div>
-
-            <div class="notification">
-                <div class="icon">
-          <span class="material-symbols-outlined">
-            list_alt
-          </span>
-                </div>
-                <div class="content">
-                    <div class="info">
-                        <h3>Name</h3>
-                        <small class="text_muted">
-                            Destination
-                        </small>
-                    </div>
-                    <span class="material-symbols-outlined">
-            more_vert
-          </span>
-                </div>
-            </div>
-
-            <div class="notification deactive">
-                <div class="icon">
-          <span class="material-symbols-outlined">
-            list_alt
-          </span>
-                </div>
-                <div class="content">
-                    <div class="info">
-                        <h3>Name</h3>
-                        <small class="text_muted">
-                            Destination
-                        </small>
-                    </div>
-                    <span class="material-symbols-outlined">
-            more_vert
-          </span>
-                </div>
-            </div>
-
-            <div class="notification add-reminder">
-                <div>
-          <span class="material-symbols-outlined">
-            read_more
-          </span>
-                    <h3>More order</h3>
-                </div>
             </div>
         </div>
     </div>

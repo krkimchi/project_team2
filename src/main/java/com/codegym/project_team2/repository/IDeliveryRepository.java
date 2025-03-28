@@ -9,4 +9,5 @@ public interface IDeliveryRepository {
     List<DeliveryItem> getDeliveryItems(int id);
     DeliveryItem getDeliveryItemById(int id);
     List<DishOption> getDishesWithOption(int id);
+    void changeDeliveryStatus(int id, String status);
 }
