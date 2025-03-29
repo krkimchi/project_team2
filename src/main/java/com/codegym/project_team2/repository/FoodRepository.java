@@ -6,6 +6,7 @@ import com.codegym.project_team2.model.Food;
 import com.codegym.project_team2.util.BaseRepository;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class FoodRepository implements IFoodRepository {
     private final String SEARCH_FOOD = "call search_food(?)";
     private final String SEARCH_FOOD_BY_ID = "select * from dishes where dishes.id = ?";
     private final String SELECT_ALL_FOOD_BY_ORDER_ID = "select d.* , od.dish_quantity from dishes d join order_detail od on d.id = od.dish_id join orders o on o.id = od.order_id where o.id = ?";
+    private final String SELECT_ALL_FOOD_BY_RESTAURANT_ID = "SELECT * FROM dishes WHERE restaurant_id = ? AND is_available = 1";
 
     @Override
     public List<DishDto> getMostOrderedFoods() {
@@ -84,7 +86,7 @@ public class FoodRepository implements IFoodRepository {
                 String dishImg = resultSet.getString("dish_img");
                 String dishDesc = resultSet.getString("description");
                 boolean isAvailable = resultSet.getBoolean("is_available");
-                String createdAt = resultSet.getString("created_at");
+                LocalDateTime createdAt = resultSet.getTimestamp("created_at").toLocalDateTime();
                 food = new Food(dishId, restaurantId, dishName, dishPrice, dishImg, dishDesc, isAvailable, createdAt);
                 return food;
             }
@@ -114,5 +116,30 @@ public class FoodRepository implements IFoodRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public List<Food> getFoodByRestaurantId(int restaurantId) {
+        List<Food> foodList = new ArrayList<>();
+        Connection connection = BaseRepository.getConnectDB();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_FOOD_BY_RESTAURANT_ID);
+            preparedStatement.setInt(1, restaurantId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int dishId = resultSet.getInt("id");
+                String dishName = resultSet.getString("dish_name");
+                double dishPrice = Double.parseDouble(resultSet.getString("dish_price"));
+                String dishImg = resultSet.getString("dish_img");
+                String dishDesc = resultSet.getString("description");
+                boolean isAvailable = resultSet.getBoolean("is_available");
+                LocalDateTime createdAt = resultSet.getTimestamp("created_at").toLocalDateTime();
+                Food food = new Food(dishId, restaurantId, dishName, dishPrice, dishImg, dishDesc, isAvailable, createdAt);
+                foodList.add(food);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return foodList;
     }
 }

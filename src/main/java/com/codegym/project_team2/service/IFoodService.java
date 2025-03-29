@@ -8,7 +8,12 @@ import java.util.List;
 
 public interface IFoodService {
     List<DishDto> getMostOrderedFoods();
+
     List<DishDto> searchFood(String keyword);
+
     Food getFoodById(int id);
+
     List<CartItem> getCartItemsByOrderId(int orderId);
+
+    List<Food> getFoodByRestaurantId(int restaurantId);
 }

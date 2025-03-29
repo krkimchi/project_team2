@@ -11,4 +11,5 @@ public interface IFoodRepository {
     List<DishDto> searchFood(String keyword);
     Food getFoodById(int id);
     List<CartItem> getCartItemsByOrderId(int orderId);
+    List<Food> getFoodByRestaurantId(int restaurantId);
 }

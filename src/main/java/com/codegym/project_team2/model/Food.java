@@ -1,6 +1,7 @@
 package com.codegym.project_team2.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Food {
@@ -11,12 +12,12 @@ public class Food {
     private String foodImg;
     private String description;
     boolean isAvailable;
-    String createdAt;
+    LocalDateTime createdAt;
 
     public Food() {
     }
 
-    public Food(int id, int restaurantId, String name, double price, String foodImg, String description, boolean isAvailable, String createdAt) {
+    public Food(int id, int restaurantId, String name, double price, String foodImg, String description, boolean isAvailable, LocalDateTime createdAt) {
         this.id = id;
         this.restaurantId = restaurantId;
         this.name = name;
@@ -83,11 +84,11 @@ public class Food {
         isAvailable = available;
     }
 
-    public String getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

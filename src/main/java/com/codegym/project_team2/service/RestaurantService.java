@@ -16,6 +16,11 @@ public class RestaurantService implements IRestaurantService {
     }
 
     @Override
+    public List<Restaurant> getAllRestaurants() {
+        return restaurantRepository.getAllRestaurants();
+    }
+
+    @Override
     public RestaurantDto show(int ownerId) {
         return restaurantRepository.show(ownerId);
     }
