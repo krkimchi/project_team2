@@ -29,10 +29,36 @@ public class RestaurantRepository implements IRestaurantRepository {
 
     final String OPEN = "UPDATE restaurants SET is_open = 1 WHERE id = ?";
     final String CLOSE = "UPDATE restaurants SET is_open = 0 WHERE id = ?";
+    private final String SELECT_ALL_RESTAURANTS = "SELECT * FROM restaurants WHERE is_open = 1";
 
     @Override
     public List<RestaurantDto> showAll() {
         List<RestaurantDto> restaurantList = new ArrayList<>();
+        return restaurantList;
+    }
+
+    @Override
+    public List<Restaurant> getAllRestaurants() {
+        Connection connection = BaseRepository.getConnectDB();
+        List<Restaurant> restaurantList = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_RESTAURANTS);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                int ownerId = resultSet.getInt("owner_id");
+                String restaurantName = resultSet.getString("restaurant_name");
+                String restaurantAddress = resultSet.getString("restaurant_address");
+                String restaurantPhone = resultSet.getString("restaurant_phone");
+                String restaurantLogo = resultSet.getString("restaurant_logo");
+                boolean isOpen = resultSet.getBoolean("is_open");
+                LocalDateTime createdAt = resultSet.getTimestamp("created_at").toLocalDateTime();
+                Restaurant restaurant = new Restaurant(id, ownerId, restaurantName, restaurantAddress, restaurantPhone, restaurantLogo, isOpen, createdAt);
+                restaurantList.add(restaurant);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return restaurantList;
     }
 

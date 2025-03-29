@@ -35,10 +35,6 @@
                             <p class="card-text">Restaurant: ${dish.restaurantName}</p>
                             <p class="card-text">Total Ordered: ${dish.totalOrdered}</p>
                             <a href="/customer?action=dish_details&id=${dish.id}" class="btn btn-primary">Xem chi tiết</a>
-                            <!-- Button to Add to Cart -->
-<%--                            <button class="btn btn-success mt-2" onclick="addToCart(${dish.id}, '${dish.name}')">--%>
-<%--                                Thêm vào Giỏ Hàng--%>
-<%--                            </button>--%>
                             <button onclick="addToCart(`${dish.getId()}`, `${dish.getName()}`)" type="button"
                                     class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#notifyModal">
                                 Thêm vào giỏ hàng
@@ -51,36 +47,6 @@
         </div>
     </section>
 
-    <!-- Nhà Hàng Gần Bạn Section -->
-    <section>
-        <h2>Nhà Hàng Gần Bạn</h2>
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="/resources/images/restaurant/ok.jpg" class="card-img-top" alt="Nhà Hàng 1">
-                    <div class="card-body">
-                        <h5 class="card-title">Nhà Hàng 1</h5>
-                        <p class="card-text">Địa chỉ: 123 Main St, Hanoi</p>
-                        <a href="restaurant_details.jsp?id=1" class="btn btn-primary">Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="/resources/images/restaurant/ok.jpg" class="card-img-top" alt="Nhà Hàng 2">
-                    <div class="card-body">
-                        <h5 class="card-title">Nhà Hàng 2</h5>
-                        <p class="card-text">Địa chỉ: 456 Nguyen Thi, Hanoi</p>
-                        <a href="restaurant_details.jsp?id=2" class="btn btn-primary">Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Các nhà hàng khác sẽ được thêm vào đây -->
-        </div>
-    </section>
-
 </main>
 
 <!-- Footer -->
@@ -89,12 +55,12 @@
 </footer>
 
 <%--Modal thông báo--%>
-<div class="modal fade" id="notifyModal" tabindex="-1" aria-labelledby="labelModal" aria-hidden="true">
+<div class="modal fade" id="notifyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <form action="/customer" method="post">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="labelModal">Thông báo</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -117,10 +83,6 @@
     </div>
 </div>
 
-<!-- Bootstrap JS and Popper.js -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
-
 <script>
     function addToCart(dishId, dishName) {
         // Cập nhật thông tin món ăn vào modal
@@ -131,6 +93,16 @@
         var myModal = new bootstrap.Modal(document.getElementById('notifyModal'));
         myModal.show();
     }
+
+    // Xử lý khi modal đóng để đảm bảo xóa modal-backdrop và modal-open
+    document.getElementById('notifyModal').addEventListener('hidden.bs.modal', function () {
+        var backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) {
+            backdrop.remove();
+        }
+        document.body.classList.remove('modal-open');
+        document.body.style.overflow = '';
+    })
 </script>
 </body>
 </html>

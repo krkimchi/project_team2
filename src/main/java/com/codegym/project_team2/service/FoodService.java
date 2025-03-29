@@ -30,4 +30,9 @@ public class FoodService implements IFoodService {
     public List<CartItem> getCartItemsByOrderId(int orderId) {
         return foodRepository.getCartItemsByOrderId(orderId);
     }
+
+    @Override
+    public List<Food> getFoodByRestaurantId(int restaurantId) {
+        return foodRepository.getFoodByRestaurantId(restaurantId);
+    }
 }

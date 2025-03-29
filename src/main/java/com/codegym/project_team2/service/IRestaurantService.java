@@ -8,6 +8,8 @@ import java.util.List;
 public interface IRestaurantService {
     List<RestaurantDto> showAll();
 
+    List<Restaurant> getAllRestaurants();
+
     RestaurantDto show(int ownerId);
 
     boolean delete(int ownerId);

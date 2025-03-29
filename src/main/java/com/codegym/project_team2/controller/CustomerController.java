@@ -1,19 +1,19 @@
 package com.codegym.project_team2.controller;
 
+import com.codegym.project_team2.dto.OrderDto;
+import com.codegym.project_team2.dto.RestaurantDto;
 import com.codegym.project_team2.model.*;
 import com.codegym.project_team2.dto.DishDto;
 import com.codegym.project_team2.repository.IUserRepository;
 import com.codegym.project_team2.repository.UserRepository;
-import com.codegym.project_team2.service.FoodService;
-import com.codegym.project_team2.service.IFoodService;
-import com.codegym.project_team2.service.IOrderService;
-import com.codegym.project_team2.service.OrderService;
+import com.codegym.project_team2.service.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -22,6 +22,7 @@ public class CustomerController extends HttpServlet {
     private IFoodService foodService = new FoodService();
     private IUserRepository userRepository = new UserRepository();
     private IOrderService orderService = new OrderService();
+    private IRestaurantService restaurantService = new RestaurantService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -59,11 +60,51 @@ public class CustomerController extends HttpServlet {
                 viewRecentOrder(req, resp);
                 break;
 
+            case "list_restaurant":
+                listRestaurants(req, resp);
+                break;
+            case "view_dishes":
+                viewDishesByRestaurant(req, resp);
+                break;
+
             default:
                 showHomePage(req, resp);
                 break;
 
         }
+    }
+
+    private void showOrderHistory(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        Customer customer = (Customer) req.getSession().getAttribute("customer");
+        if (customer == null) {
+            req.getSession().setAttribute("error", "Vui lòng đăng nhập để xem đơn hàng.");
+            resp.sendRedirect("/login");
+            return;
+        }
+
+        List<OrderDto> orders = orderService.getOrdersByUserId(customer.getId());
+        req.setAttribute("orders", orders);
+        req.getRequestDispatcher("/view/customer/order_history.jsp").forward(req, resp);
+    }
+
+    private void viewDishesByRestaurant(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int restaurantId = Integer.parseInt(req.getParameter("restaurantId"));
+        List<Food> foods = foodService.getFoodByRestaurantId(restaurantId);
+
+        Restaurant restaurant = restaurantService.getAllRestaurants().stream()
+                .filter(r -> r.getId() == restaurantId)
+                .findFirst()
+                .orElse(null);
+
+        req.setAttribute("foods", foods);
+        req.setAttribute("restaurant", restaurant);
+        req.getRequestDispatcher("/view/customer/view_dishes.jsp").forward(req, resp);
+    }
+
+    private void listRestaurants(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Restaurant> restaurants = restaurantService.getAllRestaurants();
+        req.setAttribute("restaurants", restaurants);
+        req.getRequestDispatcher("/view/customer/list_restaurant.jsp").forward(req, resp);
     }
 
     private void viewRecentOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -143,140 +184,138 @@ public class CustomerController extends HttpServlet {
             resp.sendRedirect("/customer");
         }
     }
+    
 
-    private void showOrderHistory(HttpServletRequest req, HttpServletResponse resp) {
+private void viewCart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    Customer customer = (Customer) req.getSession().getAttribute("customer");
+    if (customer == null) {
+        resp.sendRedirect("/login");
+        return;
     }
 
-    private void viewCart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    double total = 0;
+    for (CartItem item : customer.getCart()) {
+        total += item.getFood().getPrice() * item.getQuantity();
+    }
+    req.setAttribute("total", total);
+    req.getRequestDispatcher("/view/customer/cart.jsp").forward(req, resp);
+}
+
+private void showSearch(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    String searchName = req.getParameter("searchName");
+    List<DishDto> foodList = foodService.searchFood(searchName);
+    req.setAttribute("foodList", foodList);
+    req.getRequestDispatcher("/view/customer/search.jsp").forward(req, resp);
+}
+
+private void showHomePage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    List<DishDto> foodList = foodService.getMostOrderedFoods();
+    req.setAttribute("foodList", foodList);
+    req.getRequestDispatcher("/view/customer/home.jsp").forward(req, resp);
+}
+
+@Override
+protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    String action = req.getParameter("action");
+    if (action == null) {
+        action = "";
+    }
+
+    switch (action) {
+        case "add_to_cart":
+            addToCart(req, resp);
+            break;
+
+        case "place_order":
+            placeOrder(req, resp);
+            break;
+
+        case "logout":
+            doLogout(req, resp);
+            break;
+    }
+}
+
+private void doLogout(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    req.getSession().removeAttribute("customer");
+    req.getSession().invalidate();
+    resp.sendRedirect("/login");
+}
+
+private void submitShipperRating(HttpServletRequest req, HttpServletResponse resp) {
+}
+
+private void submitDishRating(HttpServletRequest req, HttpServletResponse resp) {
+}
+
+private void addToCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    String dishId = req.getParameter("dish_id");
+    int quantity = Integer.parseInt(req.getParameter("quantity"));
+
+    // Kiểm tra nếu dishId hợp lệ
+    if (dishId != null && !dishId.isEmpty()) {
+        int id = Integer.parseInt(dishId);
+        Food food = foodService.getFoodById(id);
+
         Customer customer = (Customer) req.getSession().getAttribute("customer");
-        if (customer == null) {
-            resp.sendRedirect("/login");
+        if (customer != null && food != null) {
+            customer.addToCart(food, quantity);
+            // Lưu thông báo vào session
+            req.getSession().setAttribute("message", "Món ăn " + food.getName() + " đã được thêm vào giỏ hàng.");
+        } else {
+            req.getSession().setAttribute("error", "Không thể thêm món vào giỏ hàng. Vui lòng đăng nhập hoặc thử lại.");
+        }
+
+        // Chuyển hướng về trang hiện tại (trang chủ)
+        resp.sendRedirect("/customer");
+    } else {
+        req.getSession().setAttribute("error", "Mã món ăn không hợp lệ.");
+        resp.sendRedirect("/customer");
+    }
+}
+
+private void placeOrder(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    Customer customer = (Customer) req.getSession().getAttribute("customer");
+    if (customer != null && !customer.getCart().isEmpty()) {
+        // Lấy ghi chú từ request
+        String note = req.getParameter("note");
+        if (note == null) {
+            note = "";
+        }
+
+        // Tạo đơn hàng
+        Order order = new Order(customer.getId(), customer.getCart());
+        order.setCustomerNote(note);
+
+        // Kiểm tra xem tất cả món trong giỏ hàng có cùng restaurantId không
+        int restaurantId = order.getRestaurantId();
+        boolean allSameRestaurant = true;
+        for (CartItem item : customer.getCart()) {
+            if (item.getFood().getRestaurantId() != restaurantId) {
+                allSameRestaurant = false;
+                break;
+            }
+        }
+
+        if (!allSameRestaurant) {
+            req.getSession().setAttribute("error", "Tất cả món trong giỏ hàng phải từ cùng một nhà hàng!");
+            resp.sendRedirect("/customer?action=cart");
             return;
         }
 
-        double total = 0;
-        for (CartItem item : customer.getCart()) {
-            total += item.getFood().getPrice() * item.getQuantity();
-        }
-        req.setAttribute("total", total);
-        req.getRequestDispatcher("/view/customer/cart.jsp").forward(req, resp);
-    }
-
-    private void showSearch(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String searchName = req.getParameter("searchName");
-        List<DishDto> foodList = foodService.searchFood(searchName);
-        req.setAttribute("foodList", foodList);
-        req.getRequestDispatcher("/view/customer/search.jsp").forward(req, resp);
-    }
-
-    private void showHomePage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<DishDto> foodList = foodService.getMostOrderedFoods();
-        req.setAttribute("foodList", foodList);
-        req.getRequestDispatcher("/view/customer/home.jsp").forward(req, resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter("action");
-        if (action == null) {
-            action = "";
-        }
-
-        switch (action) {
-            case "add_to_cart":
-                addToCart(req, resp);
-                break;
-
-            case "place_order":
-                placeOrder(req, resp);
-                break;
-
-            case "logout":
-                doLogout(req, resp);
-                break;
-        }
-    }
-
-    private void doLogout(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        req.getSession().removeAttribute("customer");
-        req.getSession().invalidate();
-        resp.sendRedirect("/login");
-    }
-
-    private void submitShipperRating(HttpServletRequest req, HttpServletResponse resp) {
-    }
-
-    private void submitDishRating(HttpServletRequest req, HttpServletResponse resp) {
-    }
-
-    private void addToCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String dishId = req.getParameter("dish_id");
-        int quantity = Integer.parseInt(req.getParameter("quantity"));
-
-        // Kiểm tra nếu dishId hợp lệ
-        if (dishId != null && !dishId.isEmpty()) {
-            int id = Integer.parseInt(dishId);
-            Food food = foodService.getFoodById(id);
-
-            Customer customer = (Customer) req.getSession().getAttribute("customer");
-            if (customer != null && food != null) {
-                customer.addToCart(food, quantity);
-                // Lưu thông báo vào session
-                req.getSession().setAttribute("message", "Món ăn " + food.getName() + " đã được thêm vào giỏ hàng.");
-            } else {
-                req.getSession().setAttribute("error", "Không thể thêm món vào giỏ hàng. Vui lòng đăng nhập hoặc thử lại.");
-            }
-
-            // Chuyển hướng về trang hiện tại (trang chủ)
-            resp.sendRedirect("/customer");
+        // Lưu đơn hàng
+        boolean success = customer.placeOrder(order);
+        if (success) {
+            req.getSession().setAttribute("recentOrderId", String.valueOf(order.getId()));
+            customer.getCart().clear();
+            req.getSession().setAttribute("message", "Đặt hàng thành công!");
         } else {
-            req.getSession().setAttribute("error", "Mã món ăn không hợp lệ.");
-            resp.sendRedirect("/customer");
+            req.getSession().setAttribute("error", "Đặt hàng thất bại. Vui lòng thử lại.");
         }
+    } else {
+        req.getSession().setAttribute("error", "Giỏ hàng trống hoặc bạn chưa đăng nhập.");
     }
-
-    private void placeOrder(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        Customer customer = (Customer) req.getSession().getAttribute("customer");
-        if (customer != null && !customer.getCart().isEmpty()) {
-            // Lấy ghi chú từ request
-            String note = req.getParameter("note");
-            if (note == null) {
-                note = "";
-            }
-
-            // Tạo đơn hàng
-            Order order = new Order(customer.getId(), customer.getCart());
-            order.setCustomerNote(note);
-
-            // Kiểm tra xem tất cả món trong giỏ hàng có cùng restaurantId không
-            int restaurantId = order.getRestaurantId();
-            boolean allSameRestaurant = true;
-            for (CartItem item : customer.getCart()) {
-                if (item.getFood().getRestaurantId() != restaurantId) {
-                    allSameRestaurant = false;
-                    break;
-                }
-            }
-
-            if (!allSameRestaurant) {
-                req.getSession().setAttribute("error", "Tất cả món trong giỏ hàng phải từ cùng một nhà hàng!");
-                resp.sendRedirect("/customer?action=cart");
-                return;
-            }
-
-            // Lưu đơn hàng
-            boolean success = customer.placeOrder(order);
-            if (success) {
-                req.getSession().setAttribute("recentOrderId", String.valueOf(order.getId()));
-                customer.getCart().clear();
-                req.getSession().setAttribute("message", "Đặt hàng thành công!");
-            } else {
-                req.getSession().setAttribute("error", "Đặt hàng thất bại. Vui lòng thử lại.");
-            }
-        } else {
-            req.getSession().setAttribute("error", "Giỏ hàng trống hoặc bạn chưa đăng nhập.");
-        }
-        resp.sendRedirect("/customer?action=cart");
-    }
+    resp.sendRedirect("/customer?action=cart");
+}
 
 }
