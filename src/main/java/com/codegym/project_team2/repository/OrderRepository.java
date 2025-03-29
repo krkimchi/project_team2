@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderRepository implements IOrderRepository {
-    private final String ADD_ORDER = "insert into orders(customer_id, restaurant_id, customer_note, status, created_at) values(?, ?, ?, ?, ?)";
+    private final String ADD_ORDER = "insert into orders(customer_id, restaurant_id, shipper_id, customer_note, status, created_at) values(?, ?, ?, ?, ?)";
     private final String ADD_ODER_DETAIL = "insert into order_detail(order_id, dish_id, dish_quantity) values(?, ?, ?)";
     private final String SELECT_ORDER_BY_ID = "select * from orders o where o.id = ?";
 
@@ -25,9 +25,10 @@ public class OrderRepository implements IOrderRepository {
             PreparedStatement preparedStatement = connection.prepareStatement(ADD_ORDER, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, order.getCustomerId());
             preparedStatement.setInt(2, order.getRestaurantId());
-            preparedStatement.setString(3, order.getCustomerNote());
-            preparedStatement.setString(4, order.getStatus());
-            preparedStatement.setObject(5, order.getCreatedAt());
+            preparedStatement.setInt(3, order.getShipperId());
+            preparedStatement.setString(4, order.getCustomerNote());
+            preparedStatement.setString(5, order.getStatus());
+            preparedStatement.setObject(6, order.getCreatedAt());
 
             int rowsAffected = preparedStatement.executeUpdate();
             if (rowsAffected == 1) {

@@ -20,7 +20,7 @@ public class Order {
 
     public Order() {}
 
-    public Order(int customerId, List<CartItem> items) {
+    public Order(int customerId, List<CartItem> items, Integer shipperId) {
         this.customerId = customerId;
         this.items = new ArrayList<>(items);
         this.restaurantId = determineRestaurantId(items); // Lấy restaurantId từ danh sách món

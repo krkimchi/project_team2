@@ -4,10 +4,7 @@ import com.codegym.project_team2.model.*;
 import com.codegym.project_team2.dto.DishDto;
 import com.codegym.project_team2.repository.IUserRepository;
 import com.codegym.project_team2.repository.UserRepository;
-import com.codegym.project_team2.service.FoodService;
-import com.codegym.project_team2.service.IFoodService;
-import com.codegym.project_team2.service.IOrderService;
-import com.codegym.project_team2.service.OrderService;
+import com.codegym.project_team2.service.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,6 +19,7 @@ public class CustomerController extends HttpServlet {
     private IFoodService foodService = new FoodService();
     private IUserRepository userRepository = new UserRepository();
     private IOrderService orderService = new OrderService();
+    private IDeliveryService deliveryService = new DeliveryService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -245,7 +243,7 @@ public class CustomerController extends HttpServlet {
             }
 
             // Tạo đơn hàng
-            Order order = new Order(customer.getId(), customer.getCart());
+            Order order = new Order(customer.getId(), customer.getCart(), deliveryService.shippersOrdersCount());
             order.setCustomerNote(note);
 
             // Kiểm tra xem tất cả món trong giỏ hàng có cùng restaurantId không

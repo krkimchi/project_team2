@@ -2,6 +2,7 @@ package com.codegym.project_team2.repository;
 
 import com.codegym.project_team2.model.DeliveryItem;
 import com.codegym.project_team2.model.DishOption;
+import com.codegym.project_team2.model.Shipper;
 import com.codegym.project_team2.util.BaseRepository;
 
 import java.sql.*;
@@ -117,5 +118,27 @@ public class DeliveryRepository implements IDeliveryRepository {
             throw new RuntimeException(e);
         }
         return 0;
+    }
+
+    @Override
+    public int shippersOrdersCount() {
+        String query = "call GetShipperOrderCounts()";
+        List<Shipper> shippers = new ArrayList<>();
+        Connection connection = BaseRepository.getConnectDB();
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.execute();
+            ResultSet resultSet = statement.getResultSet();
+            while (resultSet.next()){
+                int shipperId = resultSet.getInt("ShipperID");
+                String shipperName = resultSet.getString("ShipperName");
+                int orderCount = resultSet.getInt("CurrentOrderCount");
+                shippers.add(new Shipper(shipperId, shipperName, orderCount));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        Shipper shipperWithLeastOrders = shippers.get(0);
+        return 11;
     }
 }

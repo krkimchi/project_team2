@@ -34,4 +34,9 @@ public class DeliveryService implements IDeliveryService {
         return deliveryRepository.showNumbersOfOrdersHistory(id);
     }
 
+
+    @Override
+    public int shippersOrdersCount() {
+        return deliveryRepository.shippersOrdersCount();
+    }
 }
